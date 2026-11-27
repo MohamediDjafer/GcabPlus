@@ -1,0 +1,240 @@
+unit UData;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,Vcl.WinXCtrls, FireDAC.Phys.FB, FireDAC.Phys.FBDef,DateUtils;
+
+type
+  TFData = class(TDataModule)
+    FDC: TFDConnection;
+    TBill: TFDQuery;
+    DBill: TDataSource;
+    TBillID_BILL: TFDAutoIncField;
+    TBillBenefic: TWideStringField;
+    TBillBILL_MONTANT: TCurrencyField;
+    TBillBILL_DATE: TSQLTimeStampField;
+    TBillBILL_TIME: TWideStringField;
+    TBillBILL_RESTE: TCurrencyField;
+    TBillBILL_VERSE: TCurrencyField;
+    TBillUSER_NAME: TWideStringField;
+    TBillUSER_NAME_E: TWideStringField;
+    TBillDATE_E: TSQLTimeStampField;
+    TBillTIME_E: TWideStringField;
+    ADDQ: TFDQuery;
+    TArticle: TFDQuery;
+    TCAB: TFDQuery;
+    TConsum: TFDQuery;
+    TUsers: TFDQuery;
+    TPurchase: TFDQuery;
+    TOUT_Test: TFDQuery;
+    DArticle: TDataSource;
+    DCAB: TDataSource;
+    DConsum: TDataSource;
+    DUsers: TDataSource;
+    DPurchase: TDataSource;
+    DOUT_Test: TDataSource;
+    SEAR: TFDQuery;
+    UPD: TFDQuery;
+    DEL: TFDQuery;
+    EDT: TFDQuery;
+    FILT: TFDQuery;
+    FDQuery6: TFDQuery;
+    FDQuery8: TFDQuery;
+    FDQuery9: TFDQuery;
+    FDQuery10: TFDQuery;
+    DSEAR: TDataSource;
+    DFILT: TDataSource;
+    TArticleID_ARTICLE: TFDAutoIncField;
+    TArticleDESI_ART: TWideStringField;
+    TArticleCAT_ART: TWideStringField;
+    TArticleFAM_ART: TWideStringField;
+    TArticlePRICE_ART: TCurrencyField;
+    TArticleDISP: TWideStringField;
+    vide: TDataSource;
+    OCS: TFDQuery;
+    DOCS: TDataSource;
+    TArticleQTE_ART: TSingleField;
+    SUMM: TFDQuery;
+    OCSMON: TCurrencyField;
+    OCSID_Consu: TFDAutoIncField;
+    OCSARTICLE_NAME: TWideStringField;
+    OCSCS_QTE: TSingleField;
+    OCSCS_PRICE: TCurrencyField;
+    OCSARTICLE_REF: TWideStringField;
+    OCSCS_DATE: TSQLTimeStampField;
+    OCSCS_TIME: TWideStringField;
+    OCSUSER_NAME: TWideStringField;
+    OCSID_OUT: TWideStringField;
+    OCSID_ARTICLE: TIntegerField;
+    TOUT: TFDQuery;
+    DOUT: TDataSource;
+    TRecipient: TFDQuery;
+    DRecipient: TDataSource;
+    TDepense: TFDQuery;
+    DDepense: TDataSource;
+    TDepenseDEP_DESI: TWideStringField;
+    TDepenseDEP_QTE: TSingleField;
+    TDepenseDEP_PRICE: TCurrencyField;
+    TDepenseDEP_DATE: TSQLTimeStampField;
+    TDepenseDEP_TIME: TWideStringField;
+    TDepenseMON: TFloatField;
+    VAnte_F: TFDQuery;
+    DAnte_F: TDataSource;
+    VAnte_M: TFDQuery;
+    DAnte_M: TDataSource;
+    VAnte_CH: TFDQuery;
+    DAnte_CH: TDataSource;
+    VAnte_A: TFDQuery;
+    DAnte_A: TDataSource;
+    TPATIENTS: TFDQuery;
+    DPATIENTS: TDataSource;
+    VERIFICATION_USER: TFDQuery;
+    TPATIENTSNOM_P: TStringField;
+    TPATIENTSPRENOM_P: TStringField;
+    TPATIENTSSEXE_P: TStringField;
+    TPATIENTSNIV_SCOL: TIntegerField;
+    TPATIENTSNIV_FAM: TIntegerField;
+    TPATIENTSNBR_G: TIntegerField;
+    TPATIENTSNBR_F: TIntegerField;
+    TPATIENTSNOM_PERE: TStringField;
+    TPATIENTSDATE_NAISS_P: TDateField;
+    TPATIENTSPRENOM_PERE: TStringField;
+    TPATIENTSDATE_NAISS_PERE: TDateField;
+    TPATIENTSNIV_SCOL_PERE: TIntegerField;
+    TPATIENTSPROFFESSION_PERE: TStringField;
+    TPATIENTSETAT_CIVIL: TStringField;
+    TPATIENTSMARIER_PLUS: TStringField;
+    TPATIENTSMARIAGE_PROCHE: TStringField;
+    TPATIENTSETAT_SANTE_PERE: TStringField;
+    TPATIENTSETAT_SANTE_FAMILLE_PERE: TStringField;
+    TPATIENTSNOM_MERE: TStringField;
+    TPATIENTSPRENOM_MERE: TStringField;
+    TPATIENTSDATE_NAIS_MERE: TDateField;
+    TPATIENTSNIV_SCOL_MERE: TIntegerField;
+    TPATIENTSPROFESSION_MERE: TStringField;
+    TPATIENTSETAT_SANTE_MERE: TStringField;
+    TPATIENTSETAT_SANTE_FAMILLE_MERE: TStringField;
+    TPATIENTSNBR_FRERE: TIntegerField;
+    TPATIENTSETAT_SANTE_FERE: TStringField;
+    TPATIENTSADRESSE_P: TStringField;
+    TPATIENTSID_P: TIntegerField;
+    DNIV_SC: TDataSource;
+    TNIV_SC: TFDQuery;
+    TNIV_SCID_NIV: TIntegerField;
+    TNIV_SCNIV_SCOL_LIB: TStringField;
+    TPATIENTSNIV_SCOL_LIB: TStringField;
+    TPATIENTSAGE: TStringField;
+    TPATIENTSPHOTO_P: TBlobField;
+    procedure OCSCalcFields(DataSet: TDataSet);
+    procedure OCSAfterPost(DataSet: TDataSet);
+    procedure TDepenseCalcFields(DataSet: TDataSet);
+    procedure TPATIENTSCalcFields(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FData: TFData;
+  fOn: TToggleSwitchState;
+    fOff: TToggleSwitchState;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses UAdd_Consu,UAdd_Pat,UAntece;
+{$R *.dfm}
+
+procedure TFData.OCSAfterPost(DataSet: TDataSet);
+begin
+if FAdd_Consu.ToggleSwitch1.State = fOn then
+  begin
+  with FData.SUMM do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text := 'SELECT SUM(CS_QTE * CS_PRICE) FROM TConsum WHERE ID_OUT = '+QuotedStr(FData.TOUT_Test.FieldByName('ID_OUT').AsString);
+      Open();
+    end;
+  end
+else
+  begin
+      with FData.SUMM do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text := 'SELECT SUM(CS_QTE * CS_PRICE) FROM TConsum WHERE ID_OUT = '+QuotedStr(FData.TOUT.FieldByName('ID_OUT').AsString);
+      Open();
+    end;
+  end;
+
+  FAdd_Consu.LBL_MONTANT.Caption := Format('%.2m', [FData.SUMM.Fields[0].AsFloat]);
+
+end;
+
+procedure TFData.OCSCalcFields(DataSet: TDataSet);
+begin
+  with OCS do
+    begin
+     FieldByName('MON').AsFloat := FieldByName('CS_QTE').AsFloat * FieldByName('CS_PRICE').AsFloat ;
+    end;
+
+end;
+
+procedure TFData.TDepenseCalcFields(DataSet: TDataSet);
+begin
+with TDepense do
+    begin
+     FieldByName('MON').AsFloat := FieldByName('DEP_QTE').AsFloat * FieldByName('DEP_PRICE').AsFloat ;
+    end;
+end;
+
+procedure TFData.TPATIENTSCalcFields(DataSet: TDataSet);
+VAR
+lib_Age:STRING;
+NbAge:INTEGER;
+begin
+ if FormatDateTime('dd/mm/yyyy',TPATIENTSDATE_NAISS_P.Value)<>'30/12/1899' then
+  begin
+    if YearsBetween(NOW,TPATIENTSDATE_NAISS_P.Value)>0 then
+    begin
+      NbAge:=YearsBetween(NOW,TPATIENTSDATE_NAISS_P.Value);
+      lib_Age:='”‰…';
+    end
+    else
+    begin
+      if MonthsBetween(NOW,TPATIENTSDATE_NAISS_P.Value)>0 then
+      begin
+        NbAge:=MonthsBetween(NOW,TPATIENTSDATE_NAISS_P.Value);
+        lib_Age:='‘Â—';
+      end
+      else
+      begin
+        if DaysBetween(NOW,TPATIENTSDATE_NAISS_P.Value)>0 then
+        begin
+        NbAge:=DaysBetween(NOW,TPATIENTSDATE_NAISS_P.Value);
+        lib_Age:='ÌÊ„';
+        end
+        else
+        begin
+          NbAge:=-1;
+          lib_Age:='€Ì— „⁄—Ê›';
+        end;
+      end;
+    end;
+
+    TPATIENTSAGE.Value:=IntToStr(NbAge)+' '+lib_Age;
+  end
+  else
+    TPATIENTSAGE.Value:='€Ì— „⁄—Ê›';
+end;
+
+end.

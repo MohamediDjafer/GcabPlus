@@ -1,0 +1,710 @@
+unit UAdd_Pat;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dxGDIPlusClasses, Vcl.ExtCtrls,
+  AdvGlowButton, Vcl.StdCtrls, AdvCombo, Lucombo, AdvEdit, advlued,
+  GradientLabel, CurvyControls, AdvMetroButton, AdvShapeButton, acFloatCtrls,
+  AdvSmoothButton, Vcl.Mask, sMaskEdit, sCustomComboEdit, sToolEdit,
+  Vcl.WinXCtrls, AdvSmoothEdit, AdvSmoothEditButton, AdvSmoothDatePicker,DateUtils,
+  AdvDBLookupComboBox, JvExControls, JvDBLookup, AdvSpin, acPNG, Vcl.Menus,
+  JvMenus,JPEG,Data.DB, Vcl.ExtDlgs, AdvOfficeButtons;
+
+type
+  TFAdd_Pat = class(TForm)
+    Panel1: TPanel;
+    GradientLabel73: TGradientLabel;
+    GradientLabel456: TGradientLabel;
+    GradientLabel1: TGradientLabel;
+    INSERT_LNAME: TAdvLUEdit;
+    GradientLabel8: TGradientLabel;
+    INSERT_SEX: TLUCombo;
+    GradientLabel3: TGradientLabel;
+    GradientLabel2: TGradientLabel;
+    INSERT_FNAME: TAdvLUEdit;
+    GradientLabel6: TGradientLabel;
+    INSERT_ADR: TAdvLUEdit;
+    AdvGlowButton1: TAdvGlowButton;
+    Image10: TImage;
+    BTN_Apply: TAdvGlowButton;
+    BTN_Cancel: TAdvGlowButton;
+    Image1: TImage;
+    ToggleSwitch1: TToggleSwitch;
+    INSERT_DP: TAdvSmoothDatePicker;
+    GradientLabel12: TGradientLabel;
+    AdvLUEdit1: TAdvLUEdit;
+    GradientLabel4: TGradientLabel;
+    JvDBLookupCombo1: TJvDBLookupCombo;
+    GradientLabel5: TGradientLabel;
+    AdvSpinEdit1: TAdvSpinEdit;
+    GradientLabel7: TGradientLabel;
+    AdvSpinEdit2: TAdvSpinEdit;
+    GradientLabel9: TGradientLabel;
+    AdvSpinEdit3: TAdvSpinEdit;
+    JvPopupMenu2: TJvPopupMenu;
+    MenuItem1: TMenuItem;
+    N1: TMenuItem;
+    OpenPicture: TOpenPictureDialog;
+    Image2: TImage;
+    GradientLabel10: TGradientLabel;
+    GradientLabel11: TGradientLabel;
+    GradientLabel13: TGradientLabel;
+    GradientLabel14: TGradientLabel;
+    AdvLUEdit2: TAdvLUEdit;
+    GradientLabel15: TGradientLabel;
+    AdvSmoothDatePicker1: TAdvSmoothDatePicker;
+    GradientLabel16: TGradientLabel;
+    AdvLUEdit3: TAdvLUEdit;
+    GradientLabel17: TGradientLabel;
+    AdvLUEdit4: TAdvLUEdit;
+    GradientLabel18: TGradientLabel;
+    JvDBLookupCombo2: TJvDBLookupCombo;
+    GradientLabel19: TGradientLabel;
+    GradientLabel20: TGradientLabel;
+    AdvLUEdit5: TAdvLUEdit;
+    JvDBLookupCombo3: TJvDBLookupCombo;
+    GradientLabel21: TGradientLabel;
+    AdvOfficeCheckBox1: TAdvOfficeCheckBox;
+    AdvOfficeCheckBox2: TAdvOfficeCheckBox;
+    GradientLabel22: TGradientLabel;
+    AdvLUEdit6: TAdvLUEdit;
+    GradientLabel23: TGradientLabel;
+    AdvLUEdit7: TAdvLUEdit;
+    GradientLabel24: TGradientLabel;
+    GradientLabel25: TGradientLabel;
+    AdvLUEdit8: TAdvLUEdit;
+    GradientLabel26: TGradientLabel;
+    AdvLUEdit9: TAdvLUEdit;
+    GradientLabel27: TGradientLabel;
+    AdvSmoothDatePicker2: TAdvSmoothDatePicker;
+    GradientLabel28: TGradientLabel;
+    AdvLUEdit10: TAdvLUEdit;
+    GradientLabel29: TGradientLabel;
+    JvDBLookupCombo4: TJvDBLookupCombo;
+    GradientLabel30: TGradientLabel;
+    AdvLUEdit11: TAdvLUEdit;
+    GradientLabel31: TGradientLabel;
+    AdvLUEdit12: TAdvLUEdit;
+    GradientLabel32: TGradientLabel;
+    AdvLUEdit13: TAdvLUEdit;
+    GradientLabel33: TGradientLabel;
+    GradientLabel34: TGradientLabel;
+    AdvSpinEdit4: TAdvSpinEdit;
+    GradientLabel35: TGradientLabel;
+    AdvLUEdit14: TAdvLUEdit;
+    Memo1: TMemo;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BTN_ApplyClick(Sender: TObject);
+    procedure BTN_CancelClick(Sender: TObject);
+    procedure INSERT_LNAMEKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
+    procedure INSERT_FNAMEKeyPress(Sender: TObject; var Key: Char);
+    procedure INSERT_SEXKeyPress(Sender: TObject; var Key: Char);
+    procedure INSERT_DPKeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit1KeyPress(Sender: TObject; var Key: Char);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure N1Click(Sender: TObject);
+    procedure AdvSpinEdit1Change(Sender: TObject);
+    procedure AdvSpinEdit2Change(Sender: TObject);
+    procedure AdvSpinEdit3Change(Sender: TObject);
+    procedure AdvSpinEdit4Change(Sender: TObject);
+    procedure INSERT_ADRKeyPress(Sender: TObject; var Key: Char);
+    procedure JvDBLookupCombo1KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSpinEdit1KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSpinEdit2KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSpinEdit3KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit4KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit3KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSmoothDatePicker1KeyPress(Sender: TObject; var Key: Char);
+    procedure JvDBLookupCombo2KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit5KeyPress(Sender: TObject; var Key: Char);
+    procedure JvDBLookupCombo3KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvOfficeCheckBox1KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvOfficeCheckBox2KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit6KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit7KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit8KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit9KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSmoothDatePicker2KeyPress(Sender: TObject; var Key: Char);
+    procedure JvDBLookupCombo4KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit11KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit12KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit13KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvSpinEdit4KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit14KeyPress(Sender: TObject; var Key: Char);
+    procedure INSERT_DPExit(Sender: TObject);
+    procedure AdvSmoothDatePicker1Exit(Sender: TObject);
+    procedure AdvSmoothDatePicker2Exit(Sender: TObject);
+    procedure AdvLUEdit2KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvLUEdit10KeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+  procedure insertp();
+  procedure cancelp();
+  procedure editp();
+    { Public declarations }
+  end;
+
+var
+  FAdd_Pat: TFAdd_Pat;
+
+implementation
+
+uses UMain,UBLK,UData,UAntece;
+{$R *.dfm}
+
+procedure TFAdd_Pat.cancelp();
+begin
+INSERT_LNAME.Clear;
+INSERT_FNAME.Clear;
+INSERT_SEX.ItemIndex:=-1;
+INSERT_DP.Date:=NOW;
+INSERT_ADR.Clear;
+JvDBLookupCombo1.ClearValue;
+AdvSpinEdit1.Value:=0;
+AdvSpinEdit2.Value:=0;
+AdvSpinEdit3.Value:=0;
+OpenPicture.Filename:='';
+Image10.Picture:=Image2.Picture;
+AdvLUEdit4.Clear;
+AdvLUEdit3.Clear;
+AdvSmoothDatePicker1.Date:=NOW;
+JvDBLookupCombo2.ClearValue;
+AdvLUEdit5.Clear;
+JvDBLookupCombo3.ClearValue;
+AdvOfficeCheckBox1.Checked:=False;
+AdvOfficeCheckBox2.Checked:=False;
+AdvLUEdit6.Clear;
+AdvLUEdit7.Clear;
+AdvLUEdit8.Clear;
+AdvLUEdit9.Clear;
+AdvSmoothDatePicker2.Date:=NOW;
+JvDBLookupCombo4.ClearValue;
+AdvLUEdit11.Clear;
+AdvLUEdit12.Clear;
+AdvLUEdit13.Clear;
+AdvSpinEdit4.Value:=0;
+AdvLUEdit14.Clear;
+end;
+
+procedure TFAdd_Pat.editp();
+var
+Stream:TStream;
+Field:TBlobField;
+begin
+  with FData.UPD do
+    begin
+      SQL.Clear;
+      SQL.Add('UPDATE PATIENTS SET ');
+      SQL.Add('NOM_P = '+QuotedStr(INSERT_LNAME.Text)+', ');
+      SQL.Add('PRENOM_P = '+QuotedStr(INSERT_FNAME.Text)+', ');
+      if INSERT_SEX.Text='ÐßÑ' then
+        SQL.Add('SEXE_P = '+QuotedStr('M')+', ')
+      else
+        SQL.Add('SEXE_P = '+QuotedStr('F')+', ');
+      SQL.Add('DATE_NAISS_P = '+QuotedStr(FormatDateTime('mm-dd-yyyy', INSERT_DP.Date))+', ');
+      SQL.Add('ADRESSE_P = '+QuotedStr(INSERT_ADR.Text)+', ');
+      SQL.Add('NIV_SCOL = '+INTTOSTR(JvDBLookupCombo1.Value.ToInteger)+', ');
+      SQL.Add('NIV_FAM = '+INTTOSTR(AdvSpinEdit1.Value)+', ');
+      SQL.Add('NBR_G = '+INTTOSTR(AdvSpinEdit2.Value)+', ');
+      SQL.Add('NBR_F = '+INTTOSTR(AdvSpinEdit3.Value)+', ');
+      SQL.Add('PHOTO_P = '+':P_PHOTO, ');
+      if OpenPicture.FileName<>'' then
+      FData.UPD.Params.ParamByName('P_PHOTO').LoadFromFile(OpenPicture.Filename, ftBlob)
+      else
+      begin
+      Field := TBlobField(FData.TPATIENTSPHOTO_P);
+      Stream := FData.TPATIENTS.CreateBlobStream(Field, bmRead);
+      FData.UPD.Params.ParamByName('P_PHOTO').LoadFromStream(Stream, ftBlob);
+      end;
+      SQL.Add('NOM_PERE = '+QuotedStr(AdvLUEdit4.Text)+', ');
+      SQL.Add('PRENOM_PERE = '+QuotedStr(AdvLUEdit3.Text)+', ');
+      SQL.Add('DATE_NAISS_PERE = '+QuotedStr(FormatDateTime('mm-dd-yyyy', AdvSmoothDatePicker1.Date))+', ');
+      SQL.Add('NIV_SCOL_PERE = '+INTTOSTR(JvDBLookupCombo2.Value.ToInteger)+', ');
+      SQL.Add('PROFFESSION_PERE = '+QuotedStr(AdvLUEdit5.Text)+', ');
+      SQL.Add('ETAT_CIVIL = '+INTTOSTR(JvDBLookupCombo3.Value.ToInteger)+', ');
+      if AdvOfficeCheckBox1.Checked=TRUE then
+        SQL.Add('MARIER_PLUS = '+QuotedStr('Y')+', ')
+      else
+        SQL.Add('MARIER_PLUS = '+QuotedStr('N')+', ');
+      if AdvOfficeCheckBox2.Checked=TRUE then
+        SQL.Add('MARIAGE_PROCHE = '+QuotedStr('Y')+', ')
+      else
+        SQL.Add('MARIAGE_PROCHE = '+QuotedStr('N')+', ');
+      SQL.Add('ETAT_SANTE_PERE = '+QuotedStr(AdvLUEdit6.Text)+', ');
+      SQL.Add('ETAT_SANTE_FAMILLE_PERE = '+QuotedStr(AdvLUEdit7.Text)+', ');
+      SQL.Add('NOM_MERE = '+QuotedStr(AdvLUEdit8.Text)+', ');
+      SQL.Add('PRENOM_MERE = '+QuotedStr(AdvLUEdit9.Text)+', ');
+      SQL.Add('DATE_NAIS_MERE = '+QuotedStr(FormatDateTime('mm-dd-yyyy', AdvSmoothDatePicker2.Date))+', ');
+      SQL.Add('NIV_SCOL_MERE = '+INTTOSTR(JvDBLookupCombo4.Value.ToInteger)+', ');
+      SQL.Add('PROFESSION_MERE = '+QuotedStr(AdvLUEdit11.Text)+', ');
+      SQL.Add('ETAT_SANTE_MERE = '+QuotedStr(AdvLUEdit12.Text)+', ');
+      SQL.Add('ETAT_SANTE_FAMILLE_MERE = '+QuotedStr(AdvLUEdit13.Text)+', ');
+      SQL.Add('NBR_FRERE = '+INTTOSTR(AdvSpinEdit4.Value)+', ');
+      SQL.Add('ETAT_SANTE_FERE = '+QuotedStr(AdvLUEdit14.Text)+'');
+      SQL.Add('WHERE ID_P = '+(FData.TPATIENTS.FieldByName('ID_P').AsString)+'');
+      memo1.Text:=FData.UPD.SQL.Text;
+      ExecSQL;
+      FData.FDC.Commit;
+    end;
+end;
+
+procedure TFAdd_Pat.insertp()  ;
+begin
+   with FData.ADDQ do
+    begin
+      SQL.Clear;
+      SQL.Add('INSERT INTO PATIENTS(ID_P,NOM_P,PRENOM_P,SEXE_P,DATE_NAISS_P,ADRESSE_P,NIV_SCOL,NIV_FAM,NBR_G,NBR_F,');
+      SQL.Add('PHOTO_P,NOM_PERE,PRENOM_PERE,DATE_NAISS_PERE,NIV_SCOL_PERE,PROFFESSION_PERE,ETAT_CIVIL,MARIER_PLUS,');
+      SQL.Add('MARIAGE_PROCHE,ETAT_SANTE_PERE,ETAT_SANTE_FAMILLE_PERE,NOM_MERE,PRENOM_MERE,DATE_NAIS_MERE,NIV_SCOL_MERE,');
+      SQL.Add('PROFESSION_MERE,ETAT_SANTE_MERE,ETAT_SANTE_FAMILLE_MERE,NBR_FRERE,ETAT_SANTE_FERE)');
+      SQL.Add('VALUES ( Null,');
+      SQL.Add(''+QuotedStr(INSERT_LNAME.Text)+',');
+      SQL.Add(''+QuotedStr(INSERT_FNAME.Text)+',');
+      if INSERT_SEX.Text='ÐßÑ' then
+        SQL.Add(''+QuotedStr('M')+',')
+      else
+        SQL.Add(''+QuotedStr('F')+',');
+      SQL.Add(QuotedStr(FormatDateTime('mm-dd-yyyy', INSERT_DP.Date))+',');
+      SQL.Add(''+QuotedStr(INSERT_ADR.Text)+',');
+      SQL.Add(''+INTTOSTR(JvDBLookupCombo1.Value.ToInteger)+',');
+      SQL.Add(''+INTTOSTR(AdvSpinEdit1.Value)+',');
+      SQL.Add(''+INTTOSTR(AdvSpinEdit2.Value)+',');
+      SQL.Add(''+INTTOSTR(AdvSpinEdit3.Value)+',');
+      SQL.Add(''+':P_PHOTO,');
+      if OpenPicture.FileName<>'' then
+      FData.ADDQ.Params.ParamByName('P_PHOTO').LoadFromFile(OpenPicture.Filename, ftBlob);
+      SQL.Add(''+QuotedStr(AdvLUEdit4.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit3.Text)+',');
+      SQL.Add(QuotedStr(FormatDateTime('mm-dd-yyyy', AdvSmoothDatePicker1.Date))+',');
+      SQL.Add(''+INTTOSTR(JvDBLookupCombo2.Value.ToInteger)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit5.Text)+',');
+      SQL.Add(''+INTTOSTR(JvDBLookupCombo3.Value.ToInteger)+',');
+      if AdvOfficeCheckBox1.Checked=TRUE then
+        SQL.Add(''+QuotedStr('Y')+',')
+      else
+        SQL.Add(''+QuotedStr('N')+',');
+      if AdvOfficeCheckBox2.Checked=TRUE then
+        SQL.Add(''+QuotedStr('Y')+',')
+      else
+        SQL.Add(''+QuotedStr('N')+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit6.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit7.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit8.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit9.Text)+',');
+      SQL.Add(QuotedStr(FormatDateTime('mm-dd-yyyy', AdvSmoothDatePicker2.Date))+',');
+      SQL.Add(''+INTTOSTR(JvDBLookupCombo4.Value.ToInteger)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit11.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit12.Text)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit13.Text)+',');
+      SQL.Add(''+INTTOSTR(AdvSpinEdit4.Value)+',');
+      SQL.Add(''+QuotedStr(AdvLUEdit14.Text)+');');
+      ExecSQL;
+      FData.FDC.Commit;
+    end;
+end;
+
+procedure TFAdd_Pat.INSERT_ADRKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key=#13 then
+    begin
+      JvDBLookupCombo1.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.INSERT_DPExit(Sender: TObject);
+begin
+AdvLUEdit1.Text:=INTTOSTR(YearsBetween(DATE,INSERT_DP.Date));
+end;
+
+procedure TFAdd_Pat.INSERT_DPKeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit1.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.INSERT_FNAMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key=#13 then
+    begin
+      INSERT_SEX.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.INSERT_LNAMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key=#13 then
+    begin
+      INSERT_FNAME.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.INSERT_SEXKeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      INSERT_DP.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.JvDBLookupCombo1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if key=#13 then
+    begin
+      AdvSpinEdit1.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.JvDBLookupCombo2KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit5.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.JvDBLookupCombo3KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvOfficeCheckBox1.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.JvDBLookupCombo4KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit11.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.MenuItem1Click(Sender: TObject);
+var
+  ImgExt,f: string;
+  jpeg: TJpegImage;
+  i: Integer;
+  Field: TBlobField;
+  Stream: TStream;
+  Jpg: TJPEGImage;
+begin
+  if OpenPicture.Execute then
+  begin
+    //data_t.Stagiaire.edit;
+      f:=copy(OpenPicture.FileName,1,pos('.',OpenPicture.FileName)-1);
+
+    // le traitement se fera d'après l'extension du fichier
+    ImgExt := LowerCase(ExtractFileExt(OpenPicture.FileName));
+
+    // Bitmap
+    if ImgExt = '.bmp' then
+      Image10.Picture.Bitmap.LoadFromFile(OpenPicture.FileName);
+
+    // Jpeg
+    if (ImgExt = '.jpg') or (ImgExt = '.jpeg') then
+    begin
+      jpeg := TJpegImage.Create;
+      try
+        jpeg.LoadFromFile(OpenPicture.FileName);
+        // copie de l'image du jpeg dans un bitmap
+        jpeg.PixelFormat:= jf8Bit;
+        jpeg.CompressionQuality:=50;
+        jpeg.ProgressiveDisplay:=False;
+        jpeg.ProgressiveEncoding:=False;
+        jpeg.Compress;
+        Image10.Picture.Bitmap.Assign(jpeg);
+        //image10.Picture.SaveToFile(f+'.jpg');
+      finally
+        jpeg.Free;
+      end;
+
+    end; { if (ImgExt = '.JPG') or (ImgExt = '.JPEG') }
+
+    // icones
+    if ImgExt = '.ico' then
+      Image10.Picture.Icon.LoadFromFile(OpenPicture.FileName);
+
+    // wmf et emf
+    if Pos(ImgExt, GraphicFileMask(TMetaFile)) <> 0 then
+      Image10.Picture.Metafile.LoadFromFile(OpenPicture.FileName);
+  end;
+end;
+
+procedure TFAdd_Pat.N1Click(Sender: TObject);
+begin
+Image10.Picture:=Image2.Picture;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit10KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      JvDBLookupCombo4.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit11KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit12.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit12KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit13.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit13KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvSpinEdit4.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit14KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      BTN_Apply.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit1KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      INSERT_ADR.SetFocus;
+    end;
+ if not (Key in ['0'..'9'] ) then Key := #0;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit2KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      JvDBLookupCombo2.SetFocus;
+    end;
+
+end;
+
+procedure TFAdd_Pat.AdvLUEdit3KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvSmoothDatePicker1.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit4KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit3.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit5KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      JvDBLookupCombo3.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit6KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit7.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit7KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit8.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit8KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit9.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvLUEdit9KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvSmoothDatePicker2.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvOfficeCheckBox1KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvOfficeCheckBox2.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvOfficeCheckBox2KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit6.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSmoothDatePicker1Exit(Sender: TObject);
+begin
+AdvLUEdit2.Text:=INTTOSTR(YearsBetween(DATE,AdvSmoothDatePicker1.Date));
+end;
+
+procedure TFAdd_Pat.AdvSmoothDatePicker1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit2.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSmoothDatePicker2Exit(Sender: TObject);
+begin
+AdvLUEdit10.Text:=INTTOSTR(YearsBetween(DATE,AdvSmoothDatePicker2.Date));
+end;
+
+procedure TFAdd_Pat.AdvSmoothDatePicker2KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit10.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit1Change(Sender: TObject);
+begin
+if AdvSpinEdit1.Value<0 then
+AdvSpinEdit1.Value:=0;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit1KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvSpinEdit2.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit2Change(Sender: TObject);
+begin
+if AdvSpinEdit2.Value<0 then
+AdvSpinEdit2.Value:=0;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit2KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvSpinEdit3.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit3Change(Sender: TObject);
+begin
+if AdvSpinEdit3.Value<0 then
+AdvSpinEdit3.Value:=0;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit3KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit4.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit4Change(Sender: TObject);
+begin
+if AdvSpinEdit4.Value<0 then
+AdvSpinEdit4.Value:=0;
+end;
+
+procedure TFAdd_Pat.AdvSpinEdit4KeyPress(Sender: TObject; var Key: Char);
+begin
+if key=#13 then
+    begin
+      AdvLUEdit14.SetFocus;
+    end;
+end;
+
+procedure TFAdd_Pat.BTN_ApplyClick(Sender: TObject);
+begin
+
+  if ToggleSwitch1.State = tssOff then
+  begin
+    insertp;
+    MessageDlg('Êã ÊÓÌíá ÇáãÑíÖ ÈäÌÇÍ', mtInformation, [mbOK], 0);
+  end
+  else
+  begin
+    editp;
+    MessageDlg('Êã ÊÚÏíá ÇáãÑíÖ ÈäÌÇÍ', mtInformation, [mbOK], 0);
+  end;
+
+  BLK.Show;
+
+  cancelp();
+  FAdd_Pat.CLOSE;
+end;
+
+procedure TFAdd_Pat.BTN_CancelClick(Sender: TObject);
+begin
+cancelp();
+Close;
+end;
+
+procedure TFAdd_Pat.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+BLK.Close;
+FData.TPATIENTS.Refresh;
+end;
+
+procedure TFAdd_Pat.FormShow(Sender: TObject);
+begin
+INSERT_LNAME.SetFocus;
+if FData.TNIV_SC.active=true then
+FData.TNIV_SC.Refresh
+else
+begin
+FData.TNIV_SC.close;
+FData.TNIV_SC.open;
+end;
+
+if FData.TETAT_CIV.active=true then
+FData.TETAT_CIV.Refresh
+else
+begin
+FData.TETAT_CIV.close;
+FData.TETAT_CIV.open;
+end;
+
+end;
+
+end.

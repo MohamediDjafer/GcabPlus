@@ -1,0 +1,25 @@
+unit UReport;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TFSTReport = class(TDataModule)
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  FSTReport: TFSTReport;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

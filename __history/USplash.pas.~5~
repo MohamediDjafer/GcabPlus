@@ -1,0 +1,63 @@
+unit USplash;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, acPNG, Vcl.ExtCtrls, Vcl.ComCtrls,Winapi.ShellAPI;
+
+type
+  TSplash = class(TForm)
+    Image10: TImage;
+    Timer1: TTimer;
+    ProgressBar1: TProgressBar;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+  private
+    { DÈclarations privÈes }
+  public
+    { DÈclarations publiques }
+  end;
+
+var
+  Splash: TSplash;
+
+implementation
+
+{$R *.dfm}
+function ChangeResolution(Width, Height: integer): Longint;
+var
+  Affich: TDeviceMode;
+begin
+  Affich.dmSize := SizeOf(TDeviceMode); // ParamËtres
+  Affich.dmPelsWidth := Width;
+  Affich.dmPelsHeight := Height;
+  Affich.dmFields := DM_PELSWIDTH or DM_PELSHEIGHT;
+  Result := ChangeDisplaySettings(Affich, CDS_UPDATEREGISTRY);
+  // Applique avec l'Api windows
+end;
+
+function DelDir(Dir: String): Boolean;
+var fos: TSHFileOpStruct;
+begin
+  ZeroMemory(@fos, SizeOf(fos));
+  with fos do begin
+    wFunc := FO_DELETE;
+    fFlags := FOF_SILENT or FOF_NOCONFIRMATION;
+    pFrom := PChar(Dir + #0);
+  end;
+  Result := (0=ShFileOperation(fos));
+end;
+
+procedure TSplash.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+halt;
+end;
+
+procedure TSplash.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+CanClose := messagedlg('Â·  —Ìœ «·Œ—ÊÃ „‰ «·»—‰«„Ã ø', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes;
+end;
+
+end.

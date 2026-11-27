@@ -1,0 +1,29 @@
+unit UReport;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, frxClass, frxDBSet;
+
+type
+  TFSTReport = class(TDataModule)
+    frxCarteSoin: TfrxReport;
+    frxDBPatient: TfrxDBDataset;
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  FSTReport: TFSTReport;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses UData;
+
+{$R *.dfm}
+
+end.

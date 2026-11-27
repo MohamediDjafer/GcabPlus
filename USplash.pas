@@ -1,0 +1,104 @@
+unit USplash;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, acPNG, Vcl.ExtCtrls, Vcl.ComCtrls,Winapi.ShellAPI,
+  Vcl.StdCtrls, sLabel, AdvEdit, advlued, AdvGlowButton, GradientLabel,
+  dxGDIPlusClasses;
+
+type
+  TSplash = class(TForm)
+    Image10: TImage;
+    Timer1: TTimer;
+    ProgressBar1: TProgressBar;
+    sLabelFX1: TsLabelFX;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { DÈclarations privÈes }
+  public
+    { DÈclarations publiques }
+  end;
+
+var
+  Splash: TSplash;
+
+implementation
+
+{$R *.dfm}
+
+uses UConnexion;
+function ChangeResolution(Width, Height: integer): Longint;
+var
+  Affich: TDeviceMode;
+begin
+  Affich.dmSize := SizeOf(TDeviceMode); // ParamËtres
+  Affich.dmPelsWidth := Width;
+  Affich.dmPelsHeight := Height;
+  Affich.dmFields := DM_PELSWIDTH or DM_PELSHEIGHT;
+  Result := ChangeDisplaySettings(Affich, CDS_UPDATEREGISTRY);
+  // Applique avec l'Api windows
+end;
+
+function DelDir(Dir: String): Boolean;
+var fos: TSHFileOpStruct;
+begin
+  ZeroMemory(@fos, SizeOf(fos));
+  with fos do begin
+    wFunc := FO_DELETE;
+    fFlags := FOF_SILENT or FOF_NOCONFIRMATION;
+    pFrom := PChar(Dir + #0);
+  end;
+  Result := (0=ShFileOperation(fos));
+end;
+
+procedure TSplash.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+halt;
+end;
+
+procedure TSplash.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+CanClose := messagedlg('Â·  —Ìœ «·Œ—ÊÃ „‰ «·»—‰«„Ã ø', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes;
+end;
+
+procedure TSplash.FormCreate(Sender: TObject);
+begin
+  if (Screen.Width < 1366) or (Screen.Height < 768) then
+  begin
+    messagedlg('⁄—÷ «·‘«‘… = ' + IntToStr(Screen.Width) +
+      '  ≈— ›«⁄ «·‘«‘… = ' + IntToStr(Screen.Height) +
+      '  €Ì— „ Ê«›ﬁ… „⁄ «·»—‰«„Ã °Â·  —Ìœ  ⁄œÌ· «·≈⁄œ«œ«  ø',
+      mtInformation, [mbOk], 0);
+    ChangeResolution(1366, 768);
+    Position := PoScreenCenter;
+    ProgressBar1.Position := 0;
+    Timer1.Enabled := true;
+  end;
+  if (Screen.Width >= 1366) and (Screen.Height >= 768) then
+  begin
+    Position := PoScreenCenter;
+    ProgressBar1.Position := 0;
+    Timer1.Enabled := true;
+  end;
+
+end;
+
+procedure TSplash.Timer1Timer(Sender: TObject);
+begin
+  ProgressBar1.Position := ProgressBar1.Position + 2;
+  if ProgressBar1.Position >= 100 then
+  begin
+    Timer1.Enabled := false;
+    splash.Hide;
+    CONNEXION.ShowModal;
+
+  end;
+end;
+
+end.

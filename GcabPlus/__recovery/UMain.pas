@@ -1,0 +1,1023 @@
+unit UMain;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls,
+  Vcl.StdCtrls, AdvGlowButton, dxGDIPlusClasses, AdvShapeButton, AdvUtil,
+  Vcl.Grids, AdvObj, BaseGrid, AdvGrid, DBAdvGrid, PlannerCal, vCal, Planner,
+  DBPlanner, Vcl.WinXCalendars, AdvEdit, AdvEdBtn, PlannerDatePicker,
+  AdvSmoothPageSlider, advlued, AdvCombo, Lucombo, GradientLabel,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Vcl.WinXCtrls, W7Classes, W7Bars, acPNG;
+
+type
+  TFMain = class(TForm)
+    Panel1: TPanel;
+    BTN_Home: TAdvGlowButton;
+    BTN_Consul: TAdvGlowButton;
+    BTN_Wait: TAdvGlowButton;
+    BTN_Patient: TAdvGlowButton;
+    Panel3: TPanel;
+    MainPages: TPageControl;
+    TabAcc: TTabSheet;
+    Label7: TLabel;
+    TabPat: TTabSheet;
+    Label9: TLabel;
+    TabCons: TTabSheet;
+    Label11: TLabel;
+    TabAbo: TTabSheet;
+    Label13: TLabel;
+    TimeMenu: TTimer;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    AdvGlowButton3: TAdvGlowButton;
+    AdvGlowButton4: TAdvGlowButton;
+    AdvGlowButton5: TAdvGlowButton;
+    AdvGlowButton7: TAdvGlowButton;
+    TimeTab: TTimer;
+    HoverLine: TAdvShapeButton;
+    HoverLineH: TAdvShapeButton;
+    PlannerDatePicker1: TPlannerDatePicker;
+    BTN_Stat: TAdvGlowButton;
+    BTN_Finan: TAdvGlowButton;
+    BTN_Appo: TAdvGlowButton;
+    Image11: TImage;
+    Image12: TImage;
+    Image13: TImage;
+    BTN_Sett: TAdvGlowButton;
+    BTN_About: TAdvGlowButton;
+    BTN_Spent: TAdvGlowButton;
+    Image14: TImage;
+    Image15: TImage;
+    AdvGlowButton8: TAdvGlowButton;
+    AdvShapeButton1: TAdvShapeButton;
+    TabConsu: TTabSheet;
+    Label1: TLabel;
+    Image16: TImage;
+    AdvGlowButton9: TAdvGlowButton;
+    HoverLineConsu: TAdvShapeButton;
+    AdvGlowButton10: TAdvGlowButton;
+    AdvGlowButton11: TAdvGlowButton;
+    AdvGlowButton12: TAdvGlowButton;
+    Panel2: TPanel;
+    AdvGlowButton14: TAdvGlowButton;
+    AdvGlowButton15: TAdvGlowButton;
+    AdvGlowButton16: TAdvGlowButton;
+    ConsumP: TPageControl;
+    CList: TTabSheet;
+    AList: TTabSheet;
+    DBAdvGrid1: TDBAdvGrid;
+    DBAdvGrid2: TDBAdvGrid;
+    TTabConsu: TTimer;
+    EDT_SEARCH: TAdvLUEdit;
+    AdvShapeButton2: TAdvShapeButton;
+    AdvShapeButton3: TAdvShapeButton;
+    AdvLUEdit7: TAdvLUEdit;
+    AdvLUEdit10: TAdvLUEdit;
+    DList: TTabSheet;
+    DFList: TTabSheet;
+    DBAdvGrid4: TDBAdvGrid;
+    AdvLUEdit11: TAdvLUEdit;
+    AdvShapeButton4: TAdvShapeButton;
+    AdvLUEdit12: TAdvLUEdit;
+    AdvShapeButton5: TAdvShapeButton;
+    AdvGlowButton1: TAdvGlowButton;
+    AdvGlowButton2: TAdvGlowButton;
+    AdvGlowButton6: TAdvGlowButton;
+    PatientP: TPageControl;
+    PList: TTabSheet;
+    AdvLUEdit1: TAdvLUEdit;
+    AdvShapeButton6: TAdvShapeButton;
+    AdvLUEdit2: TAdvLUEdit;
+    TabSheet2: TTabSheet;
+    AdvLUEdit3: TAdvLUEdit;
+    AdvShapeButton7: TAdvShapeButton;
+    TabSheet3: TTabSheet;
+    AdvLUEdit4: TAdvLUEdit;
+    AdvShapeButton8: TAdvShapeButton;
+    TabSheet4: TTabSheet;
+    AdvLUEdit5: TAdvLUEdit;
+    AdvShapeButton9: TAdvShapeButton;
+    Image10: TImage;
+    DBAdvGrid3: TDBAdvGrid;
+    procedure BTN_HomeMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_PatientMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_ConsulMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_AboutMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_HomeMouseEnter(Sender: TObject);
+    procedure BTN_PatientMouseEnter(Sender: TObject);
+    procedure BTN_ConsulMouseEnter(Sender: TObject);
+    procedure BTN_AboutMouseEnter(Sender: TObject);
+    procedure BTN_HomeClick(Sender: TObject);
+    procedure BTN_PatientClick(Sender: TObject);
+    procedure BTN_ConsulClick(Sender: TObject);
+    procedure BTN_AboutClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Panel3MouseEnter(Sender: TObject);
+    procedure Panel3MouseLeave(Sender: TObject);
+    procedure TimeMenuTimer(Sender: TObject);
+    procedure TimeTabTimer(Sender: TObject);
+    procedure BTN_HomeMouseLeave(Sender: TObject);
+    procedure BTN_PatientMouseLeave(Sender: TObject);
+    procedure BTN_ConsulMouseLeave(Sender: TObject);
+    procedure BTN_AboutMouseLeave(Sender: TObject);
+    procedure AdvGlowButton3MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton4MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton5MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton7MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_WaitMouseEnter(Sender: TObject);
+    procedure BTN_AppoMouseEnter(Sender: TObject);
+    procedure BTN_FinanMouseEnter(Sender: TObject);
+    procedure BTN_StatMouseEnter(Sender: TObject);
+    procedure BTN_SettMouseEnter(Sender: TObject);
+    procedure BTN_WaitMouseLeave(Sender: TObject);
+    procedure BTN_AppoMouseLeave(Sender: TObject);
+    procedure BTN_FinanMouseLeave(Sender: TObject);
+    procedure BTN_StatMouseLeave(Sender: TObject);
+    procedure BTN_SettMouseLeave(Sender: TObject);
+    procedure BTN_AppoMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_WaitMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_FinanMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_StatMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_SettMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_SpentMouseEnter(Sender: TObject);
+    procedure BTN_SpentMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton8MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BTN_SpentClick(Sender: TObject);
+    procedure TTabConsuTimer(Sender: TObject);
+    procedure AdvGlowButton9Click(Sender: TObject);
+    procedure AdvGlowButton10MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton11MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton12MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton14Click(Sender: TObject);
+    procedure AdvGlowButton10Click(Sender: TObject);
+    procedure AdvGlowButton9MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure AdvGlowButton16Click(Sender: TObject);
+    procedure AdvGlowButton15Click(Sender: TObject);
+    procedure EDT_SEARCHKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBAdvGrid2GetCellColor(Sender: TObject; ARow, ACol: Integer;
+      AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+    procedure DBAdvGrid1GetCellColor(Sender: TObject; ARow, ACol: Integer;
+      AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+    procedure AdvGlowButton11Click(Sender: TObject);
+    procedure AdvGlowButton1Click(Sender: TObject);
+    procedure AdvGlowButton2Click(Sender: TObject);
+    procedure DBAdvGrid3GetCellColor(Sender: TObject; ARow, ACol: Integer;
+      AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+  private
+    { Private declarations }
+  public
+  bleft,bleftH : Integer;
+  sta,staH : string;
+  procedure btnhover(btn : TAdvGlowButton);
+  procedure btnhoverH(btn : TAdvGlowButton; Timr : TTimer);
+  procedure searchp(EDT : TAdvLUEdit; FLT : TFDQuery; DFLT : TDataSource; dbgrid : TDBAdvGrid);
+    { Public declarations }
+  end;
+
+var
+  FMain: TFMain;
+
+implementation
+
+uses UData,UBLK,UAddArtc,UEditArtc, UAdd_Consu,UAdd_Pat;
+
+{$R *.dfm}
+
+procedure TFMain.searchp(EDT : TAdvLUEdit; FLT : TFDQuery; DFLT : TDataSource; dbgrid : TDBAdvGrid);
+  var
+    List,List1,List2,List3: TStrings;
+    i: integer;
+  begin
+
+
+    List := TStringList.Create;
+    List1 := TStringList.Create;
+    List2 := TStringList.Create;
+    List3 := TStringList.Create;
+
+    ExtractStrings([' '], [], PChar(EDT.Text), List);
+    ExtractStrings(['/'], [], PChar(List.Text), List1);
+    ExtractStrings(['*'], [], PChar(List1.Text), List2);
+    ExtractStrings(['-'], [], PChar(List2.Text), List3);
+
+
+    if EDT.Text <> '' then
+      begin
+
+
+        with List3 do
+          begin
+            FLT.SQL.Clear;
+            FLT.SQL.Add('SELECT * FROM TArticle WHERE DISP = ''1'' and CONCAT(DESI_ART, '' '',  CAT_ART, '' '',  FAM_ART) like ' +
+            QuotedStr('%' + KeyNames[0] + '%') + '');
+
+            if count > 1 then
+            for i := 1 to Count-1 do
+
+              begin
+                flt.SQL.Add(' and CONCAT(DESI_ART, '' '',  CAT_ART, '' '',  FAM_ART) like ' + QuotedStr('%' + KeyNames[i] +
+                '%') + '');
+              end;
+
+            FLT.Open;
+            dbgrid.DataSource := DFLT;
+
+          end;
+      end
+    else
+      begin
+        dbgrid.DataSource := FData.DArticle;
+      end;
+
+
+end;
+
+procedure TFMain.btnhoverH(btn : TAdvGlowButton; Timr : TTimer);
+begin
+if not btn.Down = True then
+    begin
+      if  btn.Left > bleftH then
+        begin
+          staH := 'Next';
+          bleftH := btn.Left;
+          Timr.Enabled := True;
+        end
+      else
+        if  btn.Left < bleftH then
+          begin
+            staH := 'Previous';
+            bleftH := btn.Left;
+            Timr.Enabled := True;
+          end;
+    end
+  else
+    begin
+      if  btn.Left > bleftH then
+        begin
+          staH := 'Next';
+          bleftH := btn.Left;
+          Timr.Enabled := True;
+        end
+      else
+        if  btn.Left < bleftH then
+          begin
+            staH := 'Previous';
+            bleftH := btn.Left;
+            Timr.Enabled := True;
+          end;
+    end;
+end;
+
+
+procedure TFMain.AdvGlowButton10Click(Sender: TObject);
+begin
+ConsumP.ActivePage := AList ;
+end;
+
+procedure TFMain.AdvGlowButton10MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton10,TTabConsu);
+end;
+
+procedure TFMain.AdvGlowButton11Click(Sender: TObject);
+begin
+ConsumP.ActivePage := DList ;
+end;
+
+procedure TFMain.AdvGlowButton11MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton11,TTabConsu);
+end;
+
+procedure TFMain.AdvGlowButton12MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton12,TTabConsu);
+end;
+
+procedure TFMain.AdvGlowButton14Click(Sender: TObject);
+begin
+if ConsumP.ActivePage = AList then
+  begin
+    BLK.Show;
+    FAddArtc.Show;
+  end;
+if ConsumP.ActivePage = CList then
+  begin
+    BLK.Show;
+    FAdd_Consu.Show;
+    FAdd_Consu.ToggleSwitch1.State := tssOff;
+    with FData.ADDQ do
+    begin
+      SQL.Clear;
+      SQL.Add('insert into TOUT (OUT_DATE,OUT_TIME)');
+      SQL.Add('VALUES (:dat,');
+      Params.ParamByName('dat').AsDateTime := Date;
+      SQL.Add(''+QuotedStr(FormatDateTime('HH:MM',time))+')');
+      ExecSQL;
+    end;
+
+    with FData do
+      begin
+        with OCS do
+          begin
+            TOUT_Test.Refresh;
+            Close;
+            SQL.Clear;
+            SQL.Text := 'SELECT * FROM TConsum WHERE ID_OUT = '+QuotedStr(TOUT_Test.FieldByName('ID_OUT').AsString);
+            Open();
+          end;
+
+      end;
+  end;
+end;
+
+procedure TFMain.AdvGlowButton15Click(Sender: TObject);
+begin
+if ConsumP.ActivePage = AList then
+  begin
+    BLK.Show;
+    with FData do
+      begin
+        if (EDT_SEARCH.Text = '') then
+          begin
+            FEditArtc.EDIT_DESI.Text := TArticle.FieldByName('DESI_ART').AsString;
+            FEditArtc.EDIT_CAT.Text := TArticle.FieldByName('CAT_ART').AsString;
+            FEditArtc.EDIT_FAM.Text := TArticle.FieldByName('FAM_ART').AsString;
+          end
+        else
+          begin
+            FEditArtc.EDIT_DESI.Text := FILT.FieldByName('DESI_ART').AsString;
+            FEditArtc.EDIT_CAT.Text := FILT.FieldByName('CAT_ART').AsString;
+            FEditArtc.EDIT_FAM.Text := FILT.FieldByName('FAM_ART').AsString;
+          end;
+      end;
+    FEditArtc.Show;
+  end;
+
+if ConsumP.ActivePage = CList then
+  begin
+    BLK.Show;
+    FAdd_Consu.Show;
+    FAdd_Consu.ToggleSwitch1.State := tssOn;
+    with FData do
+      begin
+        with OCS do
+          begin
+            Close;
+            SQL.Clear;
+            SQL.Text := 'SELECT * FROM TConsum WHERE ID_OUT = '+QuotedStr(TOUT.FieldByName('ID_OUT').AsString);
+            Open();
+          end;
+
+        with SUMM do
+          begin
+            Close;
+            SQL.Clear;
+            SQL.Text := 'SELECT SUM(CS_QTE * CS_PRICE) FROM TConsum WHERE ID_OUT = '+QuotedStr(TOUT.FieldByName('ID_OUT').AsString);
+            Open();
+          end;
+
+        FAdd_Consu.LBL_MONTANT.Caption := Format('%.2m', [SUMM.Fields[0].AsFloat]);
+
+      end;
+  end;
+end;
+
+procedure TFMain.AdvGlowButton16Click(Sender: TObject);
+begin
+if ConsumP.ActivePage = AList then
+  begin
+    BLK.Show;
+    if messagedlg('Etes-vous sûr de supprimer le patient?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      begin
+        with FData.TArticle do
+          begin
+            Edit;
+            FieldByName('DISP').AsString := '0';
+            Post;
+          end;
+
+        FData.TArticle.Refresh;
+        MessageDlg('L''opération a été effectuée avec succès...', mtInformation, [mbOK], 0);
+
+      end;
+    BLK.Close;
+  end;
+
+if ConsumP.ActivePage = CList then
+  begin
+    BLK.Show;
+    if messagedlg('Etes-vous sûr de supprimer ce bon de consommation et leur article?',mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      begin
+
+
+
+        FData.DEL.SQL.Clear;
+        FData.DEL.SQL.Text := 'DELETE FROM TConsum WHERE ID_OUT = '+QuotedStr(FData.TOUT.FieldByName('ID_OUT').AsString);
+        FData.DEL.ExecSQL;
+
+        FData.DEL.SQL.Clear;
+        FData.DEL.SQL.Text := 'DELETE FROM TOUT WHERE ID_OUT = '+QuotedStr(FData.TOUT.FieldByName('ID_OUT').AsString);
+        FData.DEL.ExecSQL;
+      end;
+    BLK.Close;
+    FData.TOUT.Refresh;
+    DBAdvGrid1.Refresh;
+  end;
+end;
+
+procedure TFMain.AdvGlowButton1Click(Sender: TObject);
+begin
+if PatientP.ActivePage = PList then
+  begin
+    FAdd_Pat.ToggleSwitch1.State := tssOff;
+    BLK.Show;
+    FAdd_Pat.Show;
+  end;
+end;
+
+procedure TFMain.AdvGlowButton2Click(Sender: TObject);
+begin
+if PatientP.ActivePage = PList then
+  begin
+  with FAdd_Pat do
+    begin
+      INSERT_LNAME.Text      := FData.TPATIENTS.FieldByName('LNAME_PAT').AsString ;
+      INSERT_FNAME.Text      := FData.TPATIENTS.FieldByName('FNAME_PAT').AsString ;
+      INSERT_FS.SelectItem(FData.TPATIENTS.FieldByName('FAM_SITU_PAT').AsString) ;
+      INSERT_ADR.Text        := FData.TPATIENTS.FieldByName('ADR_PAT').AsString ;
+      INSERT_PROFF.Text      := FData.TPATIENTS.FieldByName('PROFF_PAT').AsString ;
+      INSERT_INSUR_N.Text    := FData.TPATIENTS.FieldByName('INSUR_NBR_PAT').AsString ;
+      INSERT_BLD.SelectItem(FData.TPATIENTS.FieldByName('BLOOD_TYPE_PAT').AsString) ;
+      INSERT_SEX.SelectItem(FData.TPATIENTS.FieldByName('SEX_PAT').AsString) ;
+      INSERT_INSUR.SelectItem(FData.TPATIENTS.FieldByName('INSUR_PAT').AsString) ;
+      ToggleSwitch1.State := tssOn;
+    end;
+
+  BLK.Show;
+  FAdd_Pat.Show;
+  end;
+end;
+
+procedure TFMain.AdvGlowButton3MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton3,TimeTab);
+end;
+
+procedure TFMain.AdvGlowButton4MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton4,TimeTab);
+end;
+
+procedure TFMain.AdvGlowButton5MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton5,TimeTab);
+end;
+
+procedure TFMain.AdvGlowButton7MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton7,TimeTab);
+end;
+
+procedure TFMain.AdvGlowButton8MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton8,TimeTab);
+end;
+
+procedure TFMain.AdvGlowButton9Click(Sender: TObject);
+begin
+btnhoverH(AdvGlowButton9,TTabConsu);
+ConsumP.ActivePage := CList ;
+end;
+
+procedure TFMain.AdvGlowButton9MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+btnhoverH(AdvGlowButton9,TTabConsu);
+end;
+
+procedure TFMain.EDT_SEARCHKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+searchp(EDT_SEARCH,FData.FILT,FData.DFILT,DBAdvGrid2);
+end;
+
+procedure TFMain.btnhover(btn : TAdvGlowButton);
+begin
+  if not btn.Down = True then
+    begin
+    HoverLine.Show;
+      if  btn.Top > bleft then
+        begin
+          sta := 'Next';
+          bleft := btn.Top;
+          TimeMenu.Enabled := True;
+          if  HoverLine.Left <> 5 then
+            HoverLine.Left := HoverLine.Left - 20;
+        end
+      else
+        if  btn.Top < bleft then
+          begin
+            sta := 'Previous';
+            bleft := btn.Top;
+            TimeMenu.Enabled := True;
+            if  HoverLine.Left <> 5 then
+              HoverLine.Left := HoverLine.Left - 20;
+          end;
+    end
+  else
+    begin
+      HoverLine.Hide;
+      if  btn.Top > bleft then
+        begin
+          sta := 'Next';
+          bleft := btn.Top;
+          TimeMenu.Enabled := True;
+          if  HoverLine.Left <> 5 then
+            HoverLine.Left := HoverLine.Left + 20;
+        end
+      else
+        if  btn.Top < bleft then
+          begin
+            sta := 'Previous';
+            bleft := btn.Top;
+            TimeMenu.Enabled := True;
+            if  HoverLine.Left <> 5 then
+              HoverLine.Left := HoverLine.Left + 20;
+          end;
+    end;
+end;
+
+procedure TFMain.BTN_AboutClick(Sender: TObject);
+begin
+MainPages.ActivePage := TabAbo ;
+end;
+
+procedure TFMain.BTN_AboutMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_About.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 25;
+  end;
+end;
+
+procedure TFMain.BTN_AboutMouseEnter(Sender: TObject);
+begin
+HoverLine.Hide;
+AdvShapeButton1.Show;
+end;
+
+procedure TFMain.BTN_AboutMouseLeave(Sender: TObject);
+begin
+AdvShapeButton1.Hide;
+end;
+
+procedure TFMain.BTN_AppoMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Appo.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 25;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_AppoMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Appo);
+end;
+
+procedure TFMain.BTN_AppoMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_ConsulClick(Sender: TObject);
+begin
+  MainPages.ActivePage := TabCons;
+end;
+
+procedure TFMain.BTN_ConsulMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Consul.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 25;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_ConsulMouseEnter(Sender: TObject);
+begin
+  btnhover(BTN_Consul);
+end;
+
+procedure TFMain.BTN_ConsulMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_FinanMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Finan.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 25;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_FinanMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Finan);
+end;
+
+procedure TFMain.BTN_FinanMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_HomeClick(Sender: TObject);
+begin
+MainPages.ActivePage := TabAcc ;
+end;
+
+procedure TFMain.BTN_HomeMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Home.Down = true then
+  begin
+      BTN_Home.Left := 25;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_HomeMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Home);
+end;
+
+procedure TFMain.BTN_HomeMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_PatientClick(Sender: TObject);
+begin
+MainPages.ActivePage := TabPat ;
+
+end;
+
+procedure TFMain.BTN_PatientMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Patient.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 25;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_PatientMouseEnter(Sender: TObject);
+begin
+  btnhover(BTN_Patient);
+end;
+
+procedure TFMain.BTN_PatientMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_SettMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Sett.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 25;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_SettMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Sett);
+end;
+
+procedure TFMain.BTN_SettMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_SpentClick(Sender: TObject);
+begin
+MainPages.ActivePage := TabConsu;
+ConsumP.ActivePage := CList;
+end;
+
+procedure TFMain.BTN_SpentMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Sett.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 25;
+  end;
+end;
+
+procedure TFMain.BTN_SpentMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Spent);
+end;
+
+procedure TFMain.BTN_StatMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Stat.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 15;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 25;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_StatMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Stat);
+end;
+
+procedure TFMain.BTN_StatMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.BTN_WaitMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+if not BTN_Wait.Down = true then
+  begin
+      BTN_Home.Left := 15;
+      BTN_Patient.Left := 15;
+      BTN_Consul.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Wait.Left := 25;
+      BTN_Appo.Left := 15;
+      BTN_Stat.Left := 15;
+      BTN_About.Left := 15;
+      BTN_Finan.Left := 15;
+      BTN_Sett.Left := 15;
+      BTN_Spent.Left := 15;
+  end;
+end;
+
+procedure TFMain.BTN_WaitMouseEnter(Sender: TObject);
+begin
+btnhover(BTN_Wait);
+end;
+
+procedure TFMain.BTN_WaitMouseLeave(Sender: TObject);
+begin
+HoverLine.Hide;
+end;
+
+procedure TFMain.DBAdvGrid1GetCellColor(Sender: TObject; ARow, ACol: Integer;
+  AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+begin
+  with DBAdvGrid1 do
+    with FData.TOUT do
+      begin
+        if ARow = GetRealRow then // To affect changes to the selected Row only
+          begin
+            SelectionColor := $00ECEC81;
+            SelectionColorTo := $00C9CE00;
+            AFont.Size := 12;
+            AFont.Style := [fsBold];
+          end;
+      end;
+end;
+
+procedure TFMain.DBAdvGrid2GetCellColor(Sender: TObject; ARow, ACol: Integer;
+  AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+begin
+  with DBAdvGrid2 do
+    with FData.TArticle do
+      begin
+        if ARow = GetRealRow then // To affect changes to the selected Row only
+          begin
+            SelectionColor := $00ECEC81;
+            SelectionColorTo := $00C9CE00;
+            AFont.Size := 12;
+            AFont.Style := [fsBold];
+          end;
+      end;
+end;
+
+procedure TFMain.DBAdvGrid3GetCellColor(Sender: TObject; ARow, ACol: Integer;
+  AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+begin
+  with DBAdvGrid3 do
+    with FData.TPATIENTS do
+      begin
+        if ARow = GetRealRow then // To affect changes to the selected Row only
+          begin
+            SelectionColor := $00ECEC81;
+            SelectionColorTo := $00C9CE00;
+            AFont.Size := 12;
+            AFont.Style := [fsBold];
+          end;
+      end;
+end;
+
+procedure TFMain.FormCreate(Sender: TObject);
+begin
+
+  bleft := BTN_Home.Top;
+  bleftH := AdvGlowButton8.Left;
+  TabAcc.TabVisible := False;
+  TabPat.TabVisible := False;
+  TabCons.TabVisible := False;
+  TabAbo.TabVisible := False;
+  MainPages.ActivePage := TabAcc ;
+  CList.TabVisible := False;
+  AList.TabVisible := False;
+  DList.TabVisible := False;
+  DFList.TabVisible := False;
+  TabConsu.TabVisible := False;
+end;
+
+procedure TFMain.Panel3MouseEnter(Sender: TObject);
+begin
+  HoverLine.Show;
+end;
+
+procedure TFMain.Panel3MouseLeave(Sender: TObject);
+begin
+  HoverLine.Hide;
+end;
+
+procedure TFMain.TimeMenuTimer(Sender: TObject);
+var
+  i: Integer;
+begin
+
+if sta = 'Next' then
+  begin
+    HoverLine.Top := HoverLine.Top + 25;
+    if  HoverLine.Top = bleft then
+      TimeMenu.Enabled := False;
+  end;
+if sta = 'Previous' then
+  begin
+    HoverLine.Top := HoverLine.Top - 25;
+    if  HoverLine.Top = bleft then
+      TimeMenu.Enabled := False;
+  end;
+end;
+
+procedure TFMain.TimeTabTimer(Sender: TObject);
+begin
+if staH = 'Next' then
+  begin
+    HoverLineH.Left := HoverLineH.Left + 26;
+    if  HoverLineH.Left = bleftH then
+      TimeTab.Enabled := False;
+  end;
+if staH = 'Previous' then
+  begin
+    HoverLineH.Left := HoverLineH.Left - 26;
+    if  HoverLineH.Left = bleftH then
+      TimeTab.Enabled := False;
+  end;
+end;
+
+procedure TFMain.TTabConsuTimer(Sender: TObject);
+begin
+if staH = 'Next' then
+  begin
+    HoverLineConsu.Left := HoverLineConsu.Left + 28;
+    if  HoverLineConsu.Left = bleftH then
+      TTabConsu.Enabled := False;
+  end;
+if staH = 'Previous' then
+  begin
+    HoverLineConsu.Left := HoverLineConsu.Left - 28;
+    if  HoverLineConsu.Left = bleftH then
+      TTabConsu.Enabled := False;
+  end;
+end;
+
+end.

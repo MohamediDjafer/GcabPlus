@@ -1,0 +1,47 @@
+program GcabPlus;
+
+uses
+  Vcl.Forms,
+  System.Sysutils,
+  UMain in 'UMain.pas' {FMain},
+  Vcl.Themes,
+  Vcl.Styles,
+  UData in 'UData.pas' {FData: TDataModule},
+  UAddArtc in 'UAddArtc.pas' {FAddArtc},
+  UBLK in 'UBLK.pas' {BLK},
+  UEditArtc in 'UEditArtc.pas' {FEditArtc},
+  UAdd_Consu in 'UAdd_Consu.pas' {FAdd_Consu},
+  UList_Users in 'UList_Users.pas' {FList_Users},
+  UList_Recip in 'UList_Recip.pas' {FList_Recip},
+  UAdd_Dep in 'UAdd_Dep.pas' {FAdd_Dep},
+  UAdd_Pat in 'UAdd_Pat.pas' {FAdd_Pat},
+  UAntece in 'UAntece.pas' {FAntece},
+  USplash in 'USplash.pas' {Splash},
+  UConnexion in 'UConnexion.pas' {Connexion};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := False;
+  FormatSettings.CurrencyString := 'DA';
+  FormatSettings.CurrencyDecimals := 2;
+  FormatSettings.CurrencyFormat := 3;
+  FormatSettings.DecimalSeparator := '.';
+
+  TStyleManager.TrySetStyle('Copper');
+  Application.CreateForm(TSplash, Splash);
+  Application.CreateForm(TFData, FData);
+  Application.CreateForm(TFMain, FMain);
+  Application.CreateForm(TFAddArtc, FAddArtc);
+  Application.CreateForm(TBLK, BLK);
+  Application.CreateForm(TFEditArtc, FEditArtc);
+  Application.CreateForm(TFAdd_Consu, FAdd_Consu);
+  Application.CreateForm(TFList_Users, FList_Users);
+  Application.CreateForm(TFList_Recip, FList_Recip);
+  Application.CreateForm(TFAdd_Dep, FAdd_Dep);
+  Application.CreateForm(TFAdd_Pat, FAdd_Pat);
+  Application.CreateForm(TFAntece, FAntece);
+  Application.CreateForm(TConnexion, Connexion);
+  Application.Run;
+end.

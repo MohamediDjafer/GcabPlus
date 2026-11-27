@@ -1,0 +1,686 @@
+object FData: TFData
+  Height = 528
+  Width = 743
+  PixelsPerInch = 96
+  object FDC: TFDConnection
+    Params.Strings = (
+      'Protocol=TCPIP'
+      'DriverID=FB'
+      'User_Name=sysdba'
+      'Password=masterkey')
+    ResourceOptions.AssignedValues = [rvBackup, rvAutoConnect, rvAutoReconnect]
+    ResourceOptions.Backup = True
+    ResourceOptions.AutoReconnect = True
+    LoginPrompt = False
+    Left = 16
+    Top = 16
+  end
+  object TBill: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TBILL')
+    Left = 16
+    Top = 160
+    object TBillID_BILL: TFDAutoIncField
+      FieldName = 'ID_BILL'
+      Origin = 'ID_BILL'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object TBillBenefic: TWideStringField
+      FieldName = 'Benefic'
+      Origin = 'Benefic'
+      Size = 150
+    end
+    object TBillBILL_MONTANT: TCurrencyField
+      FieldName = 'BILL_MONTANT'
+      Origin = 'BILL_MONTANT'
+      Required = True
+    end
+    object TBillBILL_DATE: TSQLTimeStampField
+      FieldName = 'BILL_DATE'
+      Origin = 'BILL_DATE'
+      Required = True
+    end
+    object TBillBILL_TIME: TWideStringField
+      FieldName = 'BILL_TIME'
+      Origin = 'BILL_TIME'
+      Size = 10
+    end
+    object TBillBILL_RESTE: TCurrencyField
+      FieldName = 'BILL_RESTE'
+      Origin = 'BILL_RESTE'
+    end
+    object TBillBILL_VERSE: TCurrencyField
+      FieldName = 'BILL_VERSE'
+      Origin = 'BILL_VERSE'
+    end
+    object TBillUSER_NAME: TWideStringField
+      FieldName = 'USER_NAME'
+      Origin = 'USER_NAME'
+      Size = 150
+    end
+    object TBillUSER_NAME_E: TWideStringField
+      FieldName = 'USER_NAME_E'
+      Origin = 'USER_NAME_E'
+      Size = 150
+    end
+    object TBillDATE_E: TSQLTimeStampField
+      FieldName = 'DATE_E'
+      Origin = 'DATE_E'
+    end
+    object TBillTIME_E: TWideStringField
+      FieldName = 'TIME_E'
+      Origin = 'TIME_E'
+      Size = 10
+    end
+  end
+  object DBill: TDataSource
+    DataSet = TBill
+    Left = 16
+    Top = 216
+  end
+  object ADDQ: TFDQuery
+    Connection = FDC
+    Left = 80
+    Top = 16
+  end
+  object TArticle: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TArticle WHERE DISP = 1')
+    Left = 80
+    Top = 160
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object TArticleID_ARTICLE: TFDAutoIncField
+      FieldName = 'ID_ARTICLE'
+      Origin = 'ID_ARTICLE'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object TArticleDESI_ART: TWideStringField
+      FieldName = 'DESI_ART'
+      Origin = 'DESI_ART'
+      Required = True
+      Size = 255
+    end
+    object TArticleCAT_ART: TWideStringField
+      FieldName = 'CAT_ART'
+      Origin = 'CAT_ART'
+      Size = 150
+    end
+    object TArticleFAM_ART: TWideStringField
+      FieldName = 'FAM_ART'
+      Origin = 'FAM_ART'
+      Size = 150
+    end
+    object TArticleQTE_ART: TSingleField
+      FieldName = 'QTE_ART'
+      Origin = 'QTE_ART'
+    end
+    object TArticlePRICE_ART: TCurrencyField
+      FieldName = 'PRICE_ART'
+      Origin = 'PRICE_ART'
+    end
+    object TArticleDISP: TWideStringField
+      FieldName = 'DISP'
+      Origin = 'DISP'
+      Size = 10
+    end
+  end
+  object TCAB: TFDQuery
+    Connection = FDC
+    Left = 144
+    Top = 160
+  end
+  object TConsum: TFDQuery
+    Connection = FDC
+    Left = 208
+    Top = 160
+  end
+  object TUsers: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TUsers')
+    Left = 400
+    Top = 160
+  end
+  object TPurchase: TFDQuery
+    Connection = FDC
+    Left = 336
+    Top = 160
+  end
+  object TOUT_Test: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT TOP 1 * FROM TOUT ORDER BY ID_OUT DESC')
+    Left = 272
+    Top = 160
+  end
+  object DArticle: TDataSource
+    DataSet = TArticle
+    Left = 80
+    Top = 216
+  end
+  object DCAB: TDataSource
+    DataSet = TCAB
+    Left = 144
+    Top = 216
+  end
+  object DConsum: TDataSource
+    DataSet = TConsum
+    Left = 208
+    Top = 216
+  end
+  object DUsers: TDataSource
+    DataSet = TUsers
+    Left = 400
+    Top = 216
+  end
+  object DPurchase: TDataSource
+    DataSet = TPurchase
+    Left = 336
+    Top = 216
+  end
+  object DOUT_Test: TDataSource
+    DataSet = TOUT_Test
+    Left = 272
+    Top = 216
+  end
+  object SEAR: TFDQuery
+    Connection = FDC
+    Left = 144
+    Top = 16
+  end
+  object UPD: TFDQuery
+    Connection = FDC
+    Left = 208
+    Top = 16
+  end
+  object DEL: TFDQuery
+    Connection = FDC
+    Left = 272
+    Top = 16
+  end
+  object EDT: TFDQuery
+    Connection = FDC
+    Left = 336
+    Top = 16
+  end
+  object FILT: TFDQuery
+    Connection = FDC
+    Left = 400
+    Top = 16
+  end
+  object FDQuery6: TFDQuery
+    Connection = FDC
+    Left = 80
+    Top = 80
+  end
+  object FDQuery8: TFDQuery
+    Connection = FDC
+    Left = 208
+    Top = 80
+  end
+  object FDQuery9: TFDQuery
+    Connection = FDC
+    Left = 272
+    Top = 80
+  end
+  object FDQuery10: TFDQuery
+    Connection = FDC
+    Left = 336
+    Top = 80
+  end
+  object DSEAR: TDataSource
+    DataSet = SEAR
+    Left = 144
+    Top = 80
+  end
+  object DFILT: TDataSource
+    DataSet = FILT
+    Left = 400
+    Top = 80
+  end
+  object vide: TDataSource
+    Left = 16
+    Top = 80
+  end
+  object OCS: TFDQuery
+    AfterPost = OCSAfterPost
+    OnCalcFields = OCSCalcFields
+    Connection = FDC
+    Left = 456
+    Top = 160
+    object OCSMON: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'MON'
+      Calculated = True
+    end
+    object OCSID_Consu: TFDAutoIncField
+      FieldName = 'ID_Consu'
+      Origin = 'ID_Consu'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object OCSARTICLE_NAME: TWideStringField
+      FieldName = 'ARTICLE_NAME'
+      Origin = 'ARTICLE_NAME'
+      Size = 150
+    end
+    object OCSCS_QTE: TSingleField
+      FieldName = 'CS_QTE'
+      Origin = 'CS_QTE'
+      Required = True
+    end
+    object OCSCS_PRICE: TCurrencyField
+      FieldName = 'CS_PRICE'
+      Origin = 'CS_PRICE'
+      Required = True
+    end
+    object OCSARTICLE_REF: TWideStringField
+      FieldName = 'ARTICLE_REF'
+      Origin = 'ARTICLE_REF'
+      Required = True
+      Size = 50
+    end
+    object OCSCS_DATE: TSQLTimeStampField
+      FieldName = 'CS_DATE'
+      Origin = 'CS_DATE'
+    end
+    object OCSCS_TIME: TWideStringField
+      FieldName = 'CS_TIME'
+      Origin = 'CS_TIME'
+      Size = 10
+    end
+    object OCSUSER_NAME: TWideStringField
+      FieldName = 'USER_NAME'
+      Origin = 'USER_NAME'
+      Size = 50
+    end
+    object OCSID_OUT: TWideStringField
+      FieldName = 'ID_OUT'
+      Origin = 'ID_OUT'
+      Required = True
+      Size = 50
+    end
+    object OCSID_ARTICLE: TIntegerField
+      FieldName = 'ID_ARTICLE'
+      Origin = 'ID_ARTICLE'
+      Required = True
+    end
+  end
+  object DOCS: TDataSource
+    DataSet = OCS
+    Left = 456
+    Top = 216
+  end
+  object SUMM: TFDQuery
+    Connection = FDC
+    Left = 456
+    Top = 16
+  end
+  object TOUT: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TOUT')
+    Left = 16
+    Top = 272
+  end
+  object DOUT: TDataSource
+    DataSet = TOUT
+    Left = 16
+    Top = 328
+  end
+  object TRecipient: TFDQuery
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TRecipient')
+    Left = 80
+    Top = 272
+  end
+  object DRecipient: TDataSource
+    DataSet = TRecipient
+    Left = 80
+    Top = 328
+  end
+  object TDepense: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM TDepense')
+    Left = 144
+    Top = 272
+    object TDepenseDEP_DESI: TWideStringField
+      FieldName = 'DEP_DESI'
+      Origin = 'DEP_DESI'
+      Size = 150
+    end
+    object TDepenseDEP_QTE: TSingleField
+      FieldName = 'DEP_QTE'
+      Origin = 'DEP_QTE'
+    end
+    object TDepenseDEP_PRICE: TCurrencyField
+      FieldName = 'DEP_PRICE'
+      Origin = 'DEP_PRICE'
+    end
+    object TDepenseDEP_DATE: TSQLTimeStampField
+      FieldName = 'DEP_DATE'
+      Origin = 'DEP_DATE'
+    end
+    object TDepenseDEP_TIME: TWideStringField
+      FieldName = 'DEP_TIME'
+      Origin = 'DEP_TIME'
+      Size = 15
+    end
+    object TDepenseMON: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'MON'
+      Calculated = True
+    end
+  end
+  object DDepense: TDataSource
+    DataSet = TDepense
+    Left = 144
+    Top = 328
+  end
+  object VAnte_F: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM VAnte_F')
+    Left = 208
+    Top = 272
+  end
+  object DAnte_F: TDataSource
+    DataSet = VAnte_F
+    Left = 208
+    Top = 328
+  end
+  object VAnte_M: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM VAnte_M')
+    Left = 272
+    Top = 272
+  end
+  object DAnte_M: TDataSource
+    DataSet = VAnte_M
+    Left = 272
+    Top = 328
+  end
+  object VAnte_CH: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM VAnte_CH')
+    Left = 336
+    Top = 272
+  end
+  object DAnte_CH: TDataSource
+    DataSet = VAnte_CH
+    Left = 336
+    Top = 328
+  end
+  object VAnte_A: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM VAnte_A')
+    Left = 400
+    Top = 272
+  end
+  object DAnte_A: TDataSource
+    DataSet = VAnte_A
+    Left = 400
+    Top = 328
+  end
+  object TPATIENTS: TFDQuery
+    OnCalcFields = TPATIENTSCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT P.*,NV.NIV_SCOL_LIB FROM PATIENTS AS P'
+      'LEFT JOIN NIV_SCOL AS NV ON (NV.ID_NIV=P.NIV_SCOL)')
+    Left = 456
+    Top = 272
+    object TPATIENTSNOM_P: TStringField
+      FieldName = 'NOM_P'
+      Origin = 'NOM_P'
+      Size = 500
+    end
+    object TPATIENTSPRENOM_P: TStringField
+      FieldName = 'PRENOM_P'
+      Origin = 'PRENOM_P'
+      Size = 500
+    end
+    object TPATIENTSSEXE_P: TStringField
+      FieldName = 'SEXE_P'
+      Origin = 'SEXE_P'
+      Size = 1
+    end
+    object TPATIENTSNIV_SCOL: TIntegerField
+      FieldName = 'NIV_SCOL'
+      Origin = 'NIV_SCOL'
+    end
+    object TPATIENTSNIV_FAM: TIntegerField
+      FieldName = 'NIV_FAM'
+      Origin = 'NIV_FAM'
+    end
+    object TPATIENTSNBR_G: TIntegerField
+      FieldName = 'NBR_G'
+      Origin = 'NBR_G'
+    end
+    object TPATIENTSNBR_F: TIntegerField
+      FieldName = 'NBR_F'
+      Origin = 'NBR_F'
+    end
+    object TPATIENTSNOM_PERE: TStringField
+      FieldName = 'NOM_PERE'
+      Origin = 'NOM_PERE'
+      Size = 500
+    end
+    object TPATIENTSDATE_NAISS_P: TDateField
+      FieldName = 'DATE_NAISS_P'
+      Origin = 'DATE_NAISS_P'
+    end
+    object TPATIENTSPRENOM_PERE: TStringField
+      FieldName = 'PRENOM_PERE'
+      Origin = 'PRENOM_PERE'
+      Size = 500
+    end
+    object TPATIENTSDATE_NAISS_PERE: TDateField
+      FieldName = 'DATE_NAISS_PERE'
+      Origin = 'DATE_NAISS_PERE'
+    end
+    object TPATIENTSNIV_SCOL_PERE: TIntegerField
+      FieldName = 'NIV_SCOL_PERE'
+      Origin = 'NIV_SCOL_PERE'
+    end
+    object TPATIENTSPROFFESSION_PERE: TStringField
+      FieldName = 'PROFFESSION_PERE'
+      Origin = 'PROFFESSION_PERE'
+      Size = 500
+    end
+    object TPATIENTSMARIER_PLUS: TStringField
+      FieldName = 'MARIER_PLUS'
+      Origin = 'MARIER_PLUS'
+      Size = 1
+    end
+    object TPATIENTSMARIAGE_PROCHE: TStringField
+      FieldName = 'MARIAGE_PROCHE'
+      Origin = 'MARIAGE_PROCHE'
+    end
+    object TPATIENTSETAT_SANTE_PERE: TStringField
+      FieldName = 'ETAT_SANTE_PERE'
+      Origin = 'ETAT_SANTE_PERE'
+      Size = 5000
+    end
+    object TPATIENTSETAT_SANTE_FAMILLE_PERE: TStringField
+      FieldName = 'ETAT_SANTE_FAMILLE_PERE'
+      Origin = 'ETAT_SANTE_FAMILLE_PERE'
+      Size = 5000
+    end
+    object TPATIENTSNOM_MERE: TStringField
+      FieldName = 'NOM_MERE'
+      Origin = 'NOM_MERE'
+      Size = 500
+    end
+    object TPATIENTSPRENOM_MERE: TStringField
+      FieldName = 'PRENOM_MERE'
+      Origin = 'PRENOM_MERE'
+      Size = 500
+    end
+    object TPATIENTSDATE_NAIS_MERE: TDateField
+      FieldName = 'DATE_NAIS_MERE'
+      Origin = 'DATE_NAIS_MERE'
+    end
+    object TPATIENTSNIV_SCOL_MERE: TIntegerField
+      FieldName = 'NIV_SCOL_MERE'
+      Origin = 'NIV_SCOL_MERE'
+    end
+    object TPATIENTSPROFESSION_MERE: TStringField
+      FieldName = 'PROFESSION_MERE'
+      Origin = 'PROFESSION_MERE'
+      Size = 500
+    end
+    object TPATIENTSETAT_SANTE_MERE: TStringField
+      FieldName = 'ETAT_SANTE_MERE'
+      Origin = 'ETAT_SANTE_MERE'
+      Size = 5000
+    end
+    object TPATIENTSETAT_SANTE_FAMILLE_MERE: TStringField
+      FieldName = 'ETAT_SANTE_FAMILLE_MERE'
+      Origin = 'ETAT_SANTE_FAMILLE_MERE'
+      Size = 5000
+    end
+    object TPATIENTSNBR_FRERE: TIntegerField
+      FieldName = 'NBR_FRERE'
+      Origin = 'NBR_FRERE'
+    end
+    object TPATIENTSETAT_SANTE_FERE: TStringField
+      FieldName = 'ETAT_SANTE_FERE'
+      Origin = 'ETAT_SANTE_FERE'
+      Size = 5000
+    end
+    object TPATIENTSADRESSE_P: TStringField
+      FieldName = 'ADRESSE_P'
+      Origin = 'ADRESSE_P'
+      Size = 5000
+    end
+    object TPATIENTSID_P: TIntegerField
+      FieldName = 'ID_P'
+      Origin = 'ID_P'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object TPATIENTSPHOTO_P: TBlobField
+      FieldName = 'PHOTO_P'
+      Origin = 'PHOTO_P'
+      BlobType = ftGraphic
+    end
+    object TPATIENTSETAT_CIVIL: TIntegerField
+      FieldName = 'ETAT_CIVIL'
+      Origin = 'ETAT_CIVIL'
+    end
+    object TPATIENTSNIV_SCOL_LIB: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NIV_SCOL_LIB'
+      Origin = 'NIV_SCOL_LIB'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 500
+    end
+    object TPATIENTSAGE: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'AGE'
+      Size = 50
+      Calculated = True
+    end
+  end
+  object DPATIENTS: TDataSource
+    DataSet = TPATIENTS
+    Left = 456
+    Top = 328
+  end
+  object VERIFICATION_USER: TFDQuery
+    Connection = FDC
+    Left = 544
+    Top = 16
+    ParamData = <
+      item
+        Name = 'dat'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'PRICE'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        DataType = ftInteger
+        DataTypeName = 'ID1'
+      end>
+  end
+  object DNIV_SC: TDataSource
+    DataSet = TNIV_SC
+    Left = 512
+    Top = 328
+  end
+  object TNIV_SC: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM NIV_SCOL')
+    Left = 512
+    Top = 272
+    object TNIV_SCID_NIV: TIntegerField
+      FieldName = 'ID_NIV'
+      Origin = 'ID_NIV'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object TNIV_SCNIV_SCOL_LIB: TStringField
+      FieldName = 'NIV_SCOL_LIB'
+      Origin = 'NIV_SCOL_LIB'
+      Size = 500
+    end
+  end
+  object DPATIENTS2: TDataSource
+    DataSet = TPATIENTS
+    Left = 456
+    Top = 384
+  end
+  object DETAT_CIV: TDataSource
+    DataSet = TETAT_CIV
+    Left = 560
+    Top = 328
+  end
+  object TETAT_CIV: TFDQuery
+    OnCalcFields = TDepenseCalcFields
+    Connection = FDC
+    SQL.Strings = (
+      'SELECT * FROM ETAT_CIV')
+    Left = 560
+    Top = 272
+    object TETAT_CIVID_ETAT_CV: TIntegerField
+      FieldName = 'ID_ETAT_CV'
+      Origin = 'ID_ETAT_CV'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object TETAT_CIVETAT_CIV_LIB: TStringField
+      FieldName = 'ETAT_CIV_LIB'
+      Origin = 'ETAT_CIV_LIB'
+      Size = 500
+    end
+  end
+end

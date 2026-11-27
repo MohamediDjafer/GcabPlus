@@ -1,0 +1,5 @@
+object FSTReport: TFSTReport
+  Height = 511
+  Width = 725
+  PixelsPerInch = 96
+end

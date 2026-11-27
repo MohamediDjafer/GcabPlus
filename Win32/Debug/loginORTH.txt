@@ -1,0 +1,6 @@
+127.0.0.1
+3050
+sysdba
+masterkey
+D:\ORTHOPHONISTE\GcabPlus\FDB\ORTH.FDB
+admin

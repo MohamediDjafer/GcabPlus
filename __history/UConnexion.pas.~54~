@@ -1,0 +1,446 @@
+unit UConnexion;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, acPNG, Vcl.ExtCtrls, dxGDIPlusClasses,
+  Vcl.StdCtrls, GradientLabel, AdvEdit, advlued, AdvGlowButton, Vcl.ComCtrls,
+  Vcl.WinXPanels, Vcl.Mask, AdvIPEdit,FireDAC.Phys.FBDef, AdvOfficeButtons,System.Win.Registry,
+  RTFLabel, AdvEdBtn, AdvToolBtn,Clipbrd, Vcl.MPlayer;
+
+type
+  TConnexion = class(TForm)
+    TimeMenu: TTimer;
+    CardPanel1: TCardPanel;
+    Conn: TCard;
+    Image1: TImage;
+    INSERT_LNAME: TAdvLUEdit;
+    GradientLabel73: TGradientLabel;
+    GradientLabel1: TGradientLabel;
+    GradientLabel2: TGradientLabel;
+    HoverLine: TGradientLabel;
+    INSERT_FNAME: TAdvLUEdit;
+    BTN_Cancel: TAdvGlowButton;
+    BTN_Apply: TAdvGlowButton;
+    AdvGlowButton3: TAdvGlowButton;
+    Param: TCard;
+    Image9: TImage;
+    Label13: TLabel;
+    Image2: TImage;
+    AdvGlowButton1: TAdvGlowButton;
+    AdvIPEdit1: TAdvIPEdit;
+    GradientLabel3: TGradientLabel;
+    AdvLUEdit1: TAdvLUEdit;
+    GradientLabel4: TGradientLabel;
+    GradientLabel5: TGradientLabel;
+    AdvLUEdit2: TAdvLUEdit;
+    GradientLabel6: TGradientLabel;
+    AdvLUEdit3: TAdvLUEdit;
+    AdvLUEdit4: TAdvLUEdit;
+    GradientLabel7: TGradientLabel;
+    AdvGlowButton2: TAdvGlowButton;
+    AdvOfficeCheckBox1: TAdvOfficeCheckBox;
+    Activ: TCard;
+    Image3: TImage;
+    Image4: TImage;
+    RTFLabel1: TRTFLabel;
+    AdvLUEdit5: TAdvLUEdit;
+    AdvLUEdit6: TAdvLUEdit;
+    AdvToolButton1: TAdvToolButton;
+    AdvToolButton2: TAdvToolButton;
+    BTN_Patient: TAdvGlowButton;
+    MediaPlayer1: TMediaPlayer;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure BTN_CancelClick(Sender: TObject);
+    procedure TimeMenuTimer(Sender: TObject);
+    procedure AdvGlowButton3Click(Sender: TObject);
+    procedure AdvGlowButton1Click(Sender: TObject);
+    procedure AdvGlowButton2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure BTN_ApplyClick(Sender: TObject);
+    procedure INSERT_FNAMEKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure AdvLUEdit5KeyPress(Sender: TObject; var Key: Char);
+    procedure AdvToolButton1Click(Sender: TObject);
+    procedure AdvToolButton2Click(Sender: TObject);
+    procedure BTN_PatientClick(Sender: TObject);
+  private
+    { DÈclarations privÈes }
+  public
+  bleft,bleftH : Integer;
+  sta,staH : string;
+    procedure btnhover(btn : TAdvGlowButton);
+
+    { DÈclarations publiques }
+
+  end;
+
+var
+  Connexion: TConnexion;
+  serverip,portip,usern,pass,chemin:string;
+  Login: TextFile;
+  Registre: TRegistry;
+  keyactive, keyact, r, hdd: string;
+  PWindowsDir: array [0 .. 255] of Char;
+implementation
+
+{$R *.dfm}
+
+uses UData, UMain;
+
+function GetHardDiskSerial(const DriveLetter: Char): string;
+var
+  NotUsed: DWORD;
+  VolumeFlags: DWORD;
+  VolumeInfo: array [0 .. MAX_PATH] of Char;
+  VolumeSerialNumber: DWORD;
+begin
+  GetVolumeInformation(PChar(DriveLetter + ':\'), nil, SizeOf(VolumeInfo),
+    @VolumeSerialNumber, NotUsed, VolumeFlags, nil, 0);
+  Result := Format('%8.8X', [VolumeSerialNumber])
+end;
+
+function ACTIVATION(const user: STRING): string;
+var
+  i: integer;
+  Key: longint;
+  ID: string;
+begin
+  Key := 0;
+  for i := 1 to length(user) do
+    Key := Key + (i * ord(user[i]));
+  Key := abs(Key * $1BAAFFE);
+  if Key >= $77359400 then
+    Key := Key - $77359400;
+  if Key >= $3B9ACA00 then
+    Key := Key - $3B9ACA00;
+  Key := Key XOR $221D1758;
+  if Key >= $77359400 then
+    Key := Key - $77359400;
+  if Key >= $3B9ACA00 then
+    Key := Key - $3B9ACA00;
+  str(Key, ID);
+  if length(ID) < 9 then
+    for i := 1 to (9 - length(ID)) do
+      ID := ID + '0';
+  Result := ID;
+end;
+
+procedure TConnexion.BTN_ApplyClick(Sender: TObject);
+begin
+FDATA.VERIFICATION_USER.Close;
+FDATA.VERIFICATION_USER.SQL.Clear;
+FDATA.VERIFICATION_USER.SQL.Add('select * from utilisateur where upper(UTIL_NOM)=upper('+QuotedStr(INSERT_LNAME.Text)+')');
+FDATA.VERIFICATION_USER.Open;
+if ((FDATA.VERIFICATION_USER.RecordCount=0) or (FDATA.VERIFICATION_USER.FieldByName('UTIL_PASS').AsString<>INSERT_FNAME.Text)) then
+begin
+messagedlg('≈”„ «·„” Œœ„ √Ê ﬂ·„… «·”— Œ«ÿ∆', mtWarning,[mbOK], 0);
+end
+else
+begin
+   AssignFile(Login, ExtractFilePath(Application.ExeName) + 'loginORTH.txt');
+   Rewrite(Login);
+   WriteLN(Login, serverip);
+   WriteLN(Login, portip);
+   WriteLN(Login, usern);
+   WriteLN(Login, pass);
+   WriteLN(Login, chemin);
+   if AdvOfficeCheckBox1.Checked=true then
+   WriteLN(Login, INSERT_LNAME.Text)
+   else
+   WriteLN(Login, '');
+   CloseFile(Login);
+   messagedlg('„—Õ»«', TMsgDlgType.mtConfirmation,[mbOK], 0);
+   if FileExists(ExtractFilePath(Application.ExeName) + 'AudioORTH.wma')then
+   begin
+    MediaPlayer1.FileName :='"'+ ExtractFilePath(Application.ExeName) + 'AudioORTH.wma'+'"';
+    ShowMessage(MediaPlayer1.FileName);
+    MediaPlayer1.AutoOpen:=true;
+    MediaPlayer1.Play;
+   end;
+   connexion.hide;
+   FMAIN.ShowModal;
+end;
+end;
+
+procedure TConnexion.BTN_CancelClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TConnexion.BTN_PatientClick(Sender: TObject);
+begin
+begin
+  GetWindowsDirectory(PWindowsDir, 255);
+  r := StrPas(PWindowsDir)[1];
+  hdd := Trim(GetHardDiskSerial(r[1]));
+  keyact := ACTIVATION(hdd);
+  if (keyact = AdvLUEdit5.Text) then
+  begin
+    if not(Registre.KeyExists('D27')) THEN
+    begin
+      Registre.CreateKey('D27');
+      Registre.OpenKey('D27', True);
+      Registre.WriteString('D27MSA', AdvLUEdit5.Text);
+      messagedlg(' „  ›⁄Ì· «·»—‰«„Ã »‰Ã«Õ', TMsgDlgType.mtConfirmation,[mbOK], 0);
+      CardPanel1.ActiveCard:=Conn;
+    end
+    ELSE
+    BEGIN
+      Registre.OpenKey('D27', True);
+      Registre.WriteString('D27MSA', AdvLUEdit5.Text);
+      messagedlg(' „  ›⁄Ì· «·»—‰«„Ã »‰Ã«Õ', TMsgDlgType.mtConfirmation,[mbOK], 0);
+      CardPanel1.ActiveCard:=Conn;
+    END;
+  end
+  else
+  begin
+    messagedlg('ﬂÊœ «· ›⁄Ì· Œ«ÿ∆° „‰ ›÷·ﬂ  Õﬁﬁ „‰ »Ì«‰« ﬂ', TMsgDlgType.mtError,[mbOK], 0);
+    CardPanel1.ActiveCard:=Activ;
+    AdvToolButton2.Click;
+    exit;
+  end;
+end;
+end;
+
+procedure TConnexion.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+halt;
+end;
+
+procedure TConnexion.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+CanClose := messagedlg('Â·  —Ìœ «·Œ—ÊÃ „‰ «·»—‰«„Ã ø', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes;
+end;
+
+procedure TConnexion.FormShow(Sender: TObject);
+VAR
+  Z, us: STRING;
+  pr: string;
+  Login: TextFile;
+begin
+  Registre := TRegistry.Create;
+  Registre.RootKey := HKEY_CURRENT_USER;
+  GetWindowsDirectory(PWindowsDir, 255);
+  r := StrPas(PWindowsDir)[1];
+  hdd := Trim(GetHardDiskSerial(r[1]));
+  keyact := ACTIVATION(hdd);
+  if Registre.KeyExists('D27') then
+  BEGIN
+    Registre.OpenKey('D27', true);
+    keyactive := Registre.ReadString('D27MSA');
+    if (keyactive = keyact) then
+    begin
+      CardPanel1.ActiveCard:=Conn;
+      if not FileExists(ExtractFilePath(Application.ExeName) + 'loginORTH.txt')
+      then
+        AssignFile(Login, ExtractFilePath(Application.ExeName) +
+          'loginORTH.txt')
+      else
+      BEGIN
+        AssignFile(Login, ExtractFilePath(Application.ExeName) +
+          'loginORTH.txt');
+        Reset(Login);
+        Readln(Login, serverip);
+        Readln(Login, portip);
+        Readln(Login, usern);
+        Readln(Login, pass);
+        Readln(Login, chemin);
+        Readln(Login, us);
+        if us <> '' then
+        begin
+          INSERT_LNAME.Text := us;
+          AdvOfficeCheckBox1.Checked := true;
+          INSERT_FNAME.SetFocus;
+        end
+        else
+        begin
+          INSERT_LNAME.Text := '';
+          AdvOfficeCheckBox1.Checked := false;
+          INSERT_LNAME.SetFocus;
+        end;
+        CloseFile(Login);
+        AdvIPEdit1.IPAddress := Trim(serverip);
+        AdvLUEdit1.Text := portip;
+        AdvLUEdit2.Text := usern;
+        AdvLUEdit3.Text := pass;
+        AdvLUEdit4.Text := chemin;
+
+        with FDATA.FDC.Params as TFDPhysFBConnectionDefParams do
+        begin
+          Server := serverip;
+          Port := strtoint(portip);
+          UserName := usern;
+          Password := pass;
+          Database := chemin;
+        end;
+        try
+          FDATA.FDC.Connected := true;
+          HoverLine.Color := clGreen;
+          HoverLine.Colorto := clGreen;
+          CardPanel1.Cards[0].Show
+        except
+          messagedlg('Œÿ√ ›Ì «·≈ ’«·  Õﬁﬁ „‰ «·≈⁄œ«œ« ', TMsgDlgType.mtError,
+            [mbOK], 0);
+          HoverLine.Color := $007C7CFF;
+          HoverLine.Colorto := $006868FF;
+        end;
+
+      END;
+    end
+    else
+    begin
+      CardPanel1.ActiveCard := Activ;
+      AdvLUEdit6.Text := hdd;
+    end;
+
+  END
+  else
+  begin
+    CardPanel1.ActiveCard := Activ;
+    AdvLUEdit6.Text := hdd;
+    exit;
+
+  end;
+
+end;
+
+procedure TConnexion.INSERT_FNAMEKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+if KEY = 13 then
+BTN_Apply.Click;
+end;
+
+procedure TConnexion.AdvGlowButton1Click(Sender: TObject);
+begin
+  CardPanel1.ActiveCard:=Conn;
+end;
+
+procedure TConnexion.AdvGlowButton2Click(Sender: TObject);
+begin
+     serverip:=AdvIPEdit1.IPAddress;
+     portip:=AdvLUEdit1.Text;
+     usern:=AdvLUEdit2.Text;
+     pass:=AdvLUEdit3.Text;
+     chemin:=AdvLUEdit4.Text;
+with FDATA.FDC.Params as TFDPhysFBConnectionDefParams do
+   begin
+     Server:=serverip;
+     Port:=strtoint(portip);
+     UserName:=usern;
+     Password:=pass;
+     Database:=chemin;
+   end;
+   try
+   FDATA.FDC.Connected:=true;
+   messagedlg(' „ «·≈ ’«· »«·Œ«œ„ »‰Ã«Õ', TMsgDlgType.mtConfirmation,
+    [mbOK], 0) ;
+   HoverLine.Color:=clGreen;
+   HoverLine.Colorto:=clGreen;
+   CardPanel1.Cards[0].Show
+   except
+   messagedlg('Œÿ√ ›Ì «·≈ ’«·  Õﬁﬁ „‰ «·≈⁄œ«œ« ', TMsgDlgType.mtError,
+    [mbOK], 0) ;
+   HoverLine.Color:=$007C7CFF;
+   HoverLine.Colorto:=$006868FF;
+   end;
+
+
+
+
+end;
+
+procedure TConnexion.AdvGlowButton3Click(Sender: TObject);
+begin
+CardPanel1.ActiveCard:=Param;
+end;
+
+procedure TConnexion.AdvLUEdit5KeyPress(Sender: TObject; var Key: Char);
+begin
+if not (Key in ['0'..'9'] ) then Key := #0;
+end;
+
+procedure TConnexion.AdvToolButton1Click(Sender: TObject);
+VAR
+T:STRING;
+begin
+T:=AdvLUEdit6.TEXT;
+Clipboard.AsText:=T;
+
+end;
+
+procedure TConnexion.AdvToolButton2Click(Sender: TObject);
+begin
+AdvLUEdit5.Clear;
+end;
+
+procedure TConnexion.btnhover(btn : TAdvGlowButton);
+begin
+  if not btn.Down = True then
+    begin
+    HoverLine.Show;
+      if  btn.Top > bleft then
+        begin
+          sta := 'Next';
+          bleft := btn.Top;
+          TimeMenu.Enabled := True;
+          if  HoverLine.Left <> 5 then
+            HoverLine.Left := HoverLine.Left - 20;
+        end
+      else
+        if  btn.Top < bleft then
+          begin
+            sta := 'Previous';
+            bleft := btn.Top;
+            TimeMenu.Enabled := True;
+            if  HoverLine.Left <> 5 then
+              HoverLine.Left := HoverLine.Left - 20;
+          end;
+    end
+  else
+    begin
+      HoverLine.Hide;
+      if  btn.Top > bleft then
+        begin
+          sta := 'Next';
+          bleft := btn.Top;
+          TimeMenu.Enabled := True;
+          if  HoverLine.Left <> 5 then
+            HoverLine.Left := HoverLine.Left + 20;
+        end
+      else
+        if  btn.Top < bleft then
+          begin
+            sta := 'Previous';
+            bleft := btn.Top;
+            TimeMenu.Enabled := True;
+            if  HoverLine.Left <> 5 then
+              HoverLine.Left := HoverLine.Left + 20;
+          end;
+    end;
+end;
+
+
+procedure TConnexion.TimeMenuTimer(Sender: TObject);
+var
+  i: Integer;
+begin
+
+if sta = 'Next' then
+  begin
+    HoverLine.Top := HoverLine.Top + 25;
+    if  HoverLine.Top = bleft then
+      TimeMenu.Enabled := False;
+  end;
+if sta = 'Previous' then
+  begin
+    HoverLine.Top := HoverLine.Top - 25;
+    if  HoverLine.Top = bleft then
+      TimeMenu.Enabled := False;
+  end;
+end;
+
+end.
